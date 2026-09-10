@@ -23,11 +23,11 @@ const About = () => {
             </p>
           </div>
           <div className="about-stats">
-            <div className="stat-box">
+            <div className="stat-item">
               <h3 className="stat-number">UTN</h3>
               <p className="stat-label">Ingeniería en Sistemas</p>
             </div>
-            <div className="stat-box">
+            <div className="stat-item">
               <h3 className="stat-number">100%</h3>
               <p className="stat-label">Autodidacta Curioso</p>
             </div>

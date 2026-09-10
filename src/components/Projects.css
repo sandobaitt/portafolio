@@ -4,12 +4,6 @@
   gap: 2rem;
 }
 
-@media (max-width: 480px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
 .project-card-sleek {
   display: flex;
   flex-direction: column;
@@ -90,4 +84,28 @@
 .more-projects {
   text-align: center;
   margin-top: 4rem;
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .project-card-sleek {
+    padding: 1.5rem;
+    min-height: auto;
+  }
+
+  .project-title-sleek {
+    font-size: 1.1rem;
+  }
+
+  .project-desc-sleek {
+    font-size: 0.9rem;
+  }
+
+  .more-projects {
+    margin-top: 2.5rem;
+  }
 }

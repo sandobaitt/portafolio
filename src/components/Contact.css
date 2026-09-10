@@ -44,15 +44,17 @@
 }
 
 @media (max-width: 768px) {
+  .contact-text {
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+
   .contact-links-compact {
     gap: 1rem;
-    flex-direction: column;
-    width: 100%;
   }
 
   .contact-icon-btn {
-    width: 100%;
-    max-width: 300px;
-    justify-content: center;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.9rem;
   }
 }

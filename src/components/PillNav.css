@@ -30,7 +30,7 @@
   .pill-nav {
     width: 100%;
     justify-content: space-between;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
     background: transparent;
   }
 }
@@ -213,8 +213,8 @@
 .mobile-menu-popover {
   position: absolute;
   top: 4em;
-  left: 1rem;
-  right: 1rem;
+  left: 1.5rem;
+  right: 1.5rem;
   background: var(--surface-color);
   border: 1px solid var(--border-color);
   border-radius: 20px;
