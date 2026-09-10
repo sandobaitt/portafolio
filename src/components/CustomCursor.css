@@ -1,0 +1,76 @@
+/* 
+  Custom Cursor Styles
+  We hide the default cursor on body in index.css or via media queries, 
+  and render these custom elements on top.
+*/
+
+/* Only apply custom cursor on non-touch devices */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  
+  /* Ensure all interactive elements also hide the default cursor */
+  a, button, input, textarea, select, [role="button"], [data-cursor="pointer"] {
+    cursor: none;
+  }
+
+  /* The trailing ring */
+  .custom-cursor-ring {
+    position: fixed;
+    top: -15px; /* offset by half of width/height */
+    left: -15px;
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--accent-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    will-change: transform;
+    transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s, opacity 0.3s, background-color 0.2s;
+  }
+
+  /* The solid dot that follows instantly */
+  .custom-cursor-dot {
+    position: fixed;
+    top: -4px; /* offset by half of width/height */
+    left: -4px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    will-change: transform;
+    transition: opacity 0.3s, transform 0.1s;
+  }
+
+  /* Hidden state when mouse leaves window */
+  .custom-cursor-ring.hidden,
+  .custom-cursor-dot.hidden {
+    opacity: 0;
+  }
+
+  /* Hover state on interactive elements */
+  .custom-cursor-ring.hover {
+    width: 50px;
+    height: 50px;
+    top: -25px;
+    left: -25px;
+    background-color: rgba(255, 85, 0, 0.1); /* Subtle accent background */
+    border-color: transparent;
+  }
+
+  .custom-cursor-dot.hover {
+    opacity: 0; /* Hide dot on hover to focus on the expanded ring */
+  }
+
+  /* Click state */
+  .custom-cursor-ring.clicked {
+    width: 40px;
+    height: 40px;
+    top: -20px;
+    left: -20px;
+    background-color: rgba(255, 85, 0, 0.2);
+  }
+}

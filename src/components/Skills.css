@@ -1,0 +1,45 @@
+.tech-pill-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.tech-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.tech-pill-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  opacity: 0.8;
+  font-size: 1.25rem;
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.tech-pill:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-color);
+  color: var(--text-primary);
+  box-shadow: 0 4px 20px rgba(255, 85, 0, 0.1);
+}
+
+.tech-pill:hover .tech-pill-icon {
+  color: var(--accent-color);
+  opacity: 1;
+}
