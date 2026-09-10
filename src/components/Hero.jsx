@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowDown, CheckCircle2, Terminal, Code2, Database } from 'lucide-react';
+import { ArrowDown, CheckCircle2 } from 'lucide-react';
 import './Hero.css';
 
 const Hero = () => {
@@ -26,7 +26,6 @@ const Hero = () => {
         
         <p className="hero-description">
           Apasionado por la ciberseguridad, el desarrollo de software y la inteligencia artificial. Siempre construyendo la mejor versión de mí. 
-          Desarrollando soluciones con <span className="inline-badge"><Code2 size={14}/> React</span>, <span className="inline-badge"><Terminal size={14}/> Bash</span> y <span className="inline-badge"><Database size={14}/> SQL</span>.
         </p>
         
         <div className="hero-cta">

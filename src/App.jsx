@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -13,11 +13,27 @@ import './components/ParticleBackground.css';
 import './App.css';
 
 function App() {
+  const [particleCount, setParticleCount] = useState(700);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setParticleCount(300);
+      } else {
+        setParticleCount(700);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="app-container">
       <div className="particle-background">
         <Antigravity
-          count={700}
+          count={particleCount}
           magnetRadius={8}
           ringRadius={7}
           waveSpeed={5}

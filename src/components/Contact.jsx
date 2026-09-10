@@ -20,21 +20,18 @@ const Contact = () => {
           Mis bandejas de entrada están siempre abiertas.
         </p>
 
-        <div className="contact-links">
-          <a href="mailto:llautaroemanuelsandoval@gmail.com" className="contact-card">
-            <Mail size={32} />
+        <div className="contact-links-compact">
+          <a href="mailto:llautaroemanuelsandoval@gmail.com" className="contact-icon-btn" aria-label="Email">
+            <Mail size={24} />
             <span>Email</span>
-            <p>Escríbeme un correo</p>
           </a>
-          <a href="https://www.linkedin.com/in/lautarosandoval" target="_blank" rel="noopener noreferrer" className="contact-card">
-            <FaLinkedin size={32} />
+          <a href="https://www.linkedin.com/in/lautarosandoval" target="_blank" rel="noopener noreferrer" className="contact-icon-btn" aria-label="LinkedIn">
+            <FaLinkedin size={24} />
             <span>LinkedIn</span>
-            <p>Conectemos profesionalmente</p>
           </a>
-          <a href="https://instagram.com/lautisando_" target="_blank" rel="noopener noreferrer" className="contact-card">
-            <FaInstagram size={32} />
+          <a href="https://instagram.com/lautisando_" target="_blank" rel="noopener noreferrer" className="contact-icon-btn" aria-label="Instagram">
+            <FaInstagram size={24} />
             <span>Instagram</span>
-            <p>Sígueme en mis redes</p>
           </a>
         </div>
       </motion.div>
