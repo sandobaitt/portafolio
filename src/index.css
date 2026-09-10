@@ -65,7 +65,7 @@ a:hover {
 
 @media (max-width: 768px) {
   .container {
-    padding: 0 1rem;
+    padding: 0 2rem;
   }
 }
 
@@ -90,6 +90,12 @@ a:hover {
 /* Utility Classes */
 .section {
   padding: 100px 0;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 60px 0;
+  }
 }
 
 .text-gradient {

@@ -62,6 +62,31 @@
   }
 }
 
+@media (max-width: 768px) {
+  .about {
+    padding-top: 60px;
+  }
+
+  .section-title {
+    font-size: 1.75rem; /* further reduced */
+    margin-bottom: 2rem;
+  }
+
+  .about-text p {
+    font-size: 0.95rem; /* further reduced */
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .stat-box {
+    padding: 1rem; /* further reduced */
+  }
+
+  .stat-number {
+    font-size: 1.25rem; /* further reduced */
+  }
+}
+
 @media (max-width: 480px) {
   .about-stats {
     grid-template-columns: 1fr;

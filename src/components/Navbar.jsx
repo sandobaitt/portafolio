@@ -23,6 +23,16 @@ const Navbar = () => {
     { label: 'Contacto', href: '#contact' }
   ];
 
+  const themeToggleButton = (className) => (
+    <button 
+      onClick={toggleTheme} 
+      className={`theme-toggle ${className}`} 
+      aria-label="Toggle Theme" 
+    >
+      {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+    </button>
+  );
+
   return (
     <>
       <PillNav
@@ -33,30 +43,9 @@ const Navbar = () => {
         pillColor="var(--surface-color)"
         hoveredPillTextColor="var(--surface-color)"
         pillTextColor="var(--text-primary)"
+        extraActions={themeToggleButton('mobile-toggle-btn')}
       />
-      <button 
-        onClick={toggleTheme} 
-        className="theme-toggle" 
-        aria-label="Toggle Theme" 
-        style={{ 
-          position: 'fixed', 
-          top: '1.2em', 
-          right: '2em', 
-          zIndex: 100, 
-          background: 'var(--surface-color)', 
-          border: '1px solid var(--border-color)',
-          borderRadius: '50%',
-          width: '42px',
-          height: '42px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: 'var(--text-primary)', 
-          cursor: 'pointer' 
-        }}
-      >
-        {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-      </button>
+      {themeToggleButton('desktop-only')}
     </>
   );
 };
