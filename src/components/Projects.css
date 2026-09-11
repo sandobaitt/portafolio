@@ -1,111 +1,322 @@
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+/* Projects Section Styling - Engineering Blueprint & Modern Tech Cards */
+
+.section-header-tech {
+  margin-bottom: 3rem;
 }
 
-.project-card-sleek {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: var(--surface-color);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 2rem;
-  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-  min-height: 250px;
-}
-
-.project-card-sleek:hover {
-  transform: translateY(-5px);
-  border-color: var(--accent-color);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.project-content-sleek {
-  display: flex;
-  flex-direction: column;
+.section-badge-tech {
+  display: inline-flex;
+  align-items: center;
   gap: 0.5rem;
-  margin-bottom: 2rem;
-}
-
-.project-title-sleek {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-.project-role-sleek {
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--accent-color);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  background: rgba(255, 85, 0, 0.08);
+  border: 1px solid rgba(255, 85, 0, 0.25);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+  letter-spacing: 0.03em;
 }
 
-.project-desc-sleek {
-  font-size: 0.95rem;
+.section-subtitle-tech {
+  font-size: 1.05rem;
   color: var(--text-secondary);
-  line-height: 1.6;
   margin-top: 0.5rem;
+  max-width: 600px;
 }
 
-.project-footer-sleek {
+/* Stack de Proyectos (1 Columna amplia y espaciosa) */
+.projects-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+/* Tarjeta Técnica */
+.project-card-tech {
+  position: relative;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 2.25rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+/* Borde superior luminoso dinámico */
+.project-card-tech::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 140px;
+  height: 3px;
+  background: var(--card-accent, var(--accent-color));
+  box-shadow: 0 0 14px var(--card-accent, var(--accent-color));
+  border-radius: 0 0 4px 0;
+  transition: width 0.4s ease;
+}
+
+.project-card-tech:hover::before {
+  width: 100%;
+}
+
+.project-card-tech:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+}
+
+[data-theme='light'] .project-card-tech:hover {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Header de la tarjeta */
+.project-header-tech {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-top: auto;
-  padding-top: 1.5rem;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.project-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+
+.project-card-tech:hover .project-icon-box {
+  transform: scale(1.05);
+}
+
+.project-title-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.project-title-tech {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.project-meta-tech {
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.project-role-badge {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.meta-separator {
+  color: var(--border-color);
+  font-size: 0.85rem;
+}
+
+.project-meta-affiliation {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+}
+
+/* Descripción */
+.project-desc-tech {
+  font-size: 0.98rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+}
+
+/* Technical Highlights (Viñetas técnicas de ingeniería) */
+.project-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem 1.75rem;
+  margin-bottom: 1.75rem;
+  padding: 1.15rem 1.35rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+[data-theme='light'] .project-highlights-grid {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.project-highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--text-primary);
+}
+
+.highlight-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: inline-flex;
+}
+
+.highlight-text {
+  font-weight: 500;
+}
+
+/* Tech Tags */
+.project-tags-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.project-tag-pill {
+  font-size: 0.78rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+[data-theme='light'] .project-tag-pill {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.project-card-tech:hover .project-tag-pill {
+  color: var(--text-primary);
+}
+
+/* Acciones / Botones */
+.project-actions-tech {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.25rem;
   border-top: 1px solid var(--border-color);
 }
 
-.project-tech-icons {
-  display: flex;
+.project-action-btn {
+  display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
-  color: var(--text-secondary);
-  font-size: 1.25rem;
-}
-
-.project-link-sleek {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text-secondary);
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: 0.55rem 1.15rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-color);
   text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: color 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.project-link-sleek:hover {
-  color: var(--accent-color);
+[data-theme='light'] .project-action-btn {
+  background: rgba(0, 0, 0, 0.03);
 }
 
+.project-action-btn:hover {
+  background: var(--card-accent, var(--accent-color));
+  border-color: var(--card-accent, var(--accent-color));
+  color: #FFFFFF !important;
+  transform: translateY(-1px);
+}
+
+.action-arrow {
+  transition: transform 0.2s ease;
+}
+
+.project-action-btn:hover .action-arrow {
+  transform: translate(2px, -2px);
+}
+
+/* Explorar más repositorios */
 .more-projects {
   text-align: center;
-  margin-top: 4rem;
+  margin-top: 3.5rem;
 }
 
+/* Responsive Mobile (Ajustes para celulares) */
 @media (max-width: 768px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
+  .section-header-tech {
+    margin-bottom: 2rem;
+  }
+
+  .projects-stack {
     gap: 1.5rem;
   }
 
-  .project-card-sleek {
-    padding: 1.5rem;
-    min-height: auto;
+  .project-card-tech {
+    padding: 1.5rem 1.25rem;
+    border-radius: 14px;
   }
 
-  .project-title-sleek {
-    font-size: 1.1rem;
+  .project-header-tech {
+    gap: 1rem;
+    margin-bottom: 1rem;
   }
 
-  .project-desc-sleek {
-    font-size: 0.9rem;
+  .project-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
   }
 
-  .more-projects {
-    margin-top: 2.5rem;
+  .project-title-tech {
+    font-size: 1.2rem;
+  }
+
+  .project-desc-tech {
+    font-size: 0.92rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-highlights-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-highlight-item {
+    font-size: 0.84rem;
+  }
+
+  .project-tag-pill {
+    font-size: 0.74rem;
+    padding: 0.25rem 0.55rem;
+  }
+
+  .project-actions-tech {
+    padding-top: 1rem;
+  }
+
+  .project-action-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.65rem 1rem;
   }
 }

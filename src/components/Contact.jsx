@@ -14,14 +14,18 @@ const Contact = () => {
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
+        <div className="contact-status-badge">
+          <span className="status-dot"></span>
+          <span>Disponible para proyectos y consultas técnicas</span>
+        </div>
         <h2 className="section-title">Contáctame</h2>
         <p className="contact-text">
-          ¿Tienes algún proyecto en mente o simplemente quieres saludar? 
+          ¿Tienes algún proyecto en mente o simplemente quieres conectar? 
           Mis bandejas de entrada están siempre abiertas.
         </p>
 
         <div className="contact-links-compact">
-          <a href="mailto:llautaroemanuelsandoval@gmail.com" className="contact-icon-btn" aria-label="Email">
+          <a href="mailto:lautaroemanuelsandoval@gmail.com" className="contact-icon-btn" aria-label="Email">
             <Mail size={24} />
             <span>Email</span>
           </a>

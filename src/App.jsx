@@ -5,7 +5,6 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
 import GithubActivity from './components/GithubActivity';
-import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
 import Antigravity from './components/Antigravity';
@@ -56,7 +55,6 @@ function App() {
         <Skills />
         <Projects />
         <GithubActivity />
-        <Contact />
       </main>
       <Footer />
     </div>

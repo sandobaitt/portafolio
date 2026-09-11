@@ -19,8 +19,7 @@ const Navbar = () => {
     { label: 'Inicio', href: '#home' },
     { label: 'Sobre Mí', href: '#about' },
     { label: 'Skills', href: '#skills' },
-    { label: 'Proyectos', href: '#projects' },
-    { label: 'Contacto', href: '#contact' }
+    { label: 'Proyectos', href: '#projects' }
   ];
 
   const themeToggleButton = (className) => (
