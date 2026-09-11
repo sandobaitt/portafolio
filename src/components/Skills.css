@@ -111,84 +111,203 @@
 }
 
 /* ====================================================
-   Sección de Idiomas
+   Sección de Idiomas (Blueprint Técnico idéntico a Proyectos)
 ==================================================== */
 .languages-container {
-  margin-top: 3.5rem;
-  padding-top: 2.5rem;
+  margin-top: 4.5rem;
+  padding-top: 3rem;
   border-top: 1px solid var(--border-color);
 }
 
-.languages-header {
-  margin-bottom: 2rem;
+.languages-header-tech {
+  margin-bottom: 2.5rem;
 }
 
-.languages-section-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-top: 0.5rem;
+/* Stack de Idiomas (Mismo ancho y distribución que Proyectos) */
+.languages-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+  max-width: 950px;
+  margin: 0 auto;
 }
 
-.languages-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
-}
-
-.language-card {
+/* Tarjeta Técnica de Idioma */
+.language-card-tech {
+  position: relative;
   background: var(--surface-color);
   border: 1px solid var(--border-color);
-  border-radius: 14px;
-  padding: 1.75rem;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-  position: relative;
+  border-radius: 16px;
+  padding: 2.25rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
   overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
-.language-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+/* Borde superior luminoso dinámico con variable de acento */
+.language-card-tech::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 140px;
+  height: 3px;
+  background: var(--card-accent, var(--accent-color));
+  box-shadow: 0 0 14px var(--card-accent, var(--accent-color));
+  border-radius: 0 0 4px 0;
+  transition: width 0.4s ease;
 }
 
-[data-theme='light'] .language-card:hover {
+.language-card-tech:hover::before {
+  width: 100%;
+}
+
+.language-card-tech:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+}
+
+[data-theme='light'] .language-card-tech:hover {
   border-color: rgba(0, 0, 0, 0.15);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
 }
 
-.language-card-header {
+/* Header de la tarjeta */
+.language-header-tech {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
-.language-flag {
-  font-size: 2.25rem;
-  line-height: 1;
+/* Cuadrado de Identidad idéntico a .project-icon-box */
+.language-icon-box {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  transition: transform 0.25s ease;
 }
 
-.language-name {
-  font-size: 1.25rem;
+.language-card-tech:hover .language-icon-box {
+  transform: scale(1.05);
+}
+
+.language-flag-emoji {
+  font-size: 1.65rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.language-title-area {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.language-title-tech {
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 0.2rem;
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 
-.language-level-badge {
-  display: inline-block;
-  font-size: 0.78rem;
+.language-meta-tech {
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.language-role-badge {
   font-weight: 600;
-  color: var(--accent-color);
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
 }
 
-.language-desc {
-  font-size: 0.94rem;
+.language-meta-affiliation {
   color: var(--text-secondary);
-  line-height: 1.6;
+  font-size: 0.82rem;
+}
+
+/* Descripción */
+.language-desc-tech {
+  font-size: 0.98rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 1.5rem;
+}
+
+/* Highlights Grid (2 Columnas en desktop, 1 en mobile) */
+.language-highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem 1.75rem;
+  margin-bottom: 1.75rem;
+  padding: 1.15rem 1.35rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+[data-theme='light'] .language-highlights-grid {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.language-highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--text-primary);
+}
+
+.language-highlight-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: inline-flex;
+}
+
+.language-highlight-text {
+  font-weight: 500;
+}
+
+/* Tags de Idioma */
+.language-tags-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.language-tag-pill {
+  font-size: 0.78rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  padding: 0.3rem 0.7rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+[data-theme='light'] .language-tag-pill {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.language-card-tech:hover .language-tag-pill {
+  color: var(--text-primary);
 }
 
 /* Adaptación responsive móvil */
@@ -216,24 +335,56 @@
     padding-top: 2rem;
   }
 
-  .languages-grid {
-    grid-template-columns: 1fr;
+  .languages-header-tech {
+    margin-bottom: 1.75rem;
+  }
+
+  .languages-stack {
+    gap: 1.5rem;
+  }
+
+  .language-card-tech {
+    padding: 1.5rem 1.25rem;
+    border-radius: 14px;
+  }
+
+  .language-header-tech {
     gap: 1rem;
+    margin-bottom: 1rem;
   }
 
-  .language-card {
-    padding: 1.25rem;
+  .language-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
   }
 
-  .language-flag {
-    font-size: 1.85rem;
+  .language-flag-emoji {
+    font-size: 1.35rem;
   }
 
-  .language-name {
-    font-size: 1.1rem;
+  .language-title-tech {
+    font-size: 1.2rem;
   }
 
-  .language-desc {
-    font-size: 0.88rem;
+  .language-desc-tech {
+    font-size: 0.92rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .language-highlights-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .language-highlight-item {
+    font-size: 0.84rem;
+  }
+
+  .language-tag-pill {
+    font-size: 0.74rem;
+    padding: 0.25rem 0.55rem;
   }
 }

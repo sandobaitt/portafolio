@@ -8,7 +8,10 @@ import {
   Languages, 
   Layers, 
   CheckCircle2,
-  Sparkles
+  Sparkles,
+  MessageSquare,
+  FileText,
+  BookOpen
 } from 'lucide-react';
 import { 
   FaReact, 
@@ -67,21 +70,78 @@ const Skills = () => {
     { name: "Responsive UI", icon: <Globe color="#FF5500" /> }
   ];
 
-  // Idiomas
+  // Idiomas con la misma estructura y datos enriquecidos que los proyectos
   const languages = [
     {
+      id: "es",
       name: "Español",
       level: "Nativo / Lengua Materna",
+      affiliation: "Fluidez Absoluta",
+      accent: "#ff5500",
       flag: "🇦🇷",
-      description: "Dominio completo y natural. Excelente capacidad de redacción técnica y comunicación estructurada."
+      description: "Dominio lingüístico completo y natural, con sólida capacidad para estructuración de ideas complejas, documentación clara y comunicación interpersonal.",
+      highlights: [
+        {
+          icon: <MessageSquare size={16} />,
+          text: "Comunicación fluida y articulada en dinámicas de equipo ágiles"
+        },
+        {
+          icon: <FileText size={16} />,
+          text: "Redacción estructurada, especificaciones y documentación técnica"
+        },
+        {
+          icon: <CheckCircle2 size={16} />,
+          text: "Claridad en el análisis y formulación de requerimientos de software"
+        },
+        {
+          icon: <Sparkles size={16} />,
+          text: "Capacidad de síntesis conceptual para resolución de problemas técnicos"
+        }
+      ],
+      tags: ["Nativo", "Fluidez Total", "Redacción Técnica", "Comunicación Ágil"]
     },
     {
+      id: "en",
       name: "Inglés",
       level: "Técnico Profesional (B1 / B2)",
+      affiliation: "Documentación & Desarrollo",
+      accent: "#38bdf8",
       flag: "🇺🇸",
-      description: "Lectura fluida de documentación técnica, especificaciones de arquitectura y comunicación escrita en entornos de desarrollo."
+      description: "Capacidad sólida de asimilación técnica, lectura analítica y comunicación escrita en plataformas y ecosistemas globales de desarrollo.",
+      highlights: [
+        {
+          icon: <BookOpen size={16} />,
+          text: "Lectura fluida de documentación oficial, RFCs y papers técnicos"
+        },
+        {
+          icon: <FileText size={16} />,
+          text: "Redacción precisa de commits, pull requests, issues y manuales"
+        },
+        {
+          icon: <CheckCircle2 size={16} />,
+          text: "Comprensión auditiva en conferencias, tutoriales y podcasts técnicos"
+        },
+        {
+          icon: <Sparkles size={16} />,
+          text: "Perfeccionamiento continuo orientado a arquitectura y buenas prácticas"
+        }
+      ],
+      tags: ["Técnico Profesional", "Docs & RFCs", "Escritura Dev", "En Formación Continua"]
     }
   ];
+
+  const languagesContainerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 }
+    }
+  };
+
+  const languageCardVariants = {
+    hidden: { opacity: 0, y: 25 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } }
+  };
 
   return (
     <section className="skills section container" id="skills">
@@ -137,39 +197,86 @@ const Skills = () => {
         </div>
       </div>
 
-      {/* Apartado de Idiomas */}
-      <motion.div 
-        className="languages-container"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="languages-header">
+      {/* Apartado de Idiomas con el diseño y animaciones de Proyectos */}
+      <div className="languages-container">
+        <div className="section-header-tech languages-header-tech">
           <div className="section-badge-tech">
             <Languages size={15} />
-            <span>Comunicación</span>
+            <span>Idiomas & Comunicación</span>
           </div>
-          <h3 className="languages-section-title">
-            Idiomas
+          <h3 className="section-title">
+            Competencias <span className="text-gradient">Lingüísticas</span>
           </h3>
+          <p className="section-subtitle-tech">
+            Habilidades idiomáticas aplicadas al análisis de requerimientos, código y trabajo en equipo global.
+          </p>
         </div>
 
-        <div className="languages-grid">
-          {languages.map((lang, index) => (
-            <div key={index} className="language-card">
-              <div className="language-card-header">
-                <span className="language-flag">{lang.flag}</span>
-                <div>
-                  <h4 className="language-name">{lang.name}</h4>
-                  <span className="language-level-badge">{lang.level}</span>
+        <motion.div 
+          className="languages-stack"
+          variants={languagesContainerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          {languages.map((lang) => (
+            <motion.article 
+              key={lang.id} 
+              className="language-card-tech"
+              variants={languageCardVariants}
+              style={{ '--card-accent': lang.accent }}
+            >
+              {/* Cabecera de Identidad con Cuadrado de Icono idéntico a Proyectos */}
+              <div className="language-header-tech">
+                <div 
+                  className="language-icon-box"
+                  style={{ 
+                    backgroundColor: `${lang.accent}18`,
+                    borderColor: `${lang.accent}40`,
+                    color: lang.accent
+                  }}
+                >
+                  <span className="language-flag-emoji">{lang.flag}</span>
+                </div>
+                <div className="language-title-area">
+                  <h4 className="language-title-tech">{lang.name}</h4>
+                  <div className="language-meta-tech">
+                    <span className="language-role-badge" style={{ color: lang.accent }}>
+                      {lang.level}
+                    </span>
+                    <span className="meta-separator">·</span>
+                    <span className="language-meta-affiliation">{lang.affiliation}</span>
+                  </div>
                 </div>
               </div>
-              <p className="language-desc">{lang.description}</p>
-            </div>
+
+              {/* Descripción */}
+              <p className="language-desc-tech">{lang.description}</p>
+
+              {/* Highlights de Competencia (Idéntico a Proyectos) */}
+              <div className="language-highlights-grid">
+                {lang.highlights.map((highlight, hIdx) => (
+                  <div key={hIdx} className="language-highlight-item">
+                    <span className="language-highlight-icon" style={{ color: lang.accent }}>
+                      {highlight.icon}
+                    </span>
+                    <span className="language-highlight-text">{highlight.text}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Badges / Tags */}
+              <div className="language-tags-tech">
+                {lang.tags.map((tag, tIdx) => (
+                  <span key={tIdx} className="language-tag-pill">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </motion.article>
           ))}
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 };
