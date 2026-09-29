@@ -14,7 +14,7 @@ export const person = {
 
 export const hero = {
   lead:
-    'Hago sitios web para instituciones de Resistencia y estudio Ingeniería en Sistemas de Información en la UTN. En la facultad programo desde objetos en Pharo hasta assembler 8086.',
+    'Hago sitios web para instituciones de Resistencia y estudio Ingeniería en Sistemas de Información en la UTN. En la facultad programo desde objetos en Pharo hasta assembler 8086, y fuera de ella resuelvo CTFs de ciberseguridad.',
 };
 
 // Orden de las secciones = orden de las capas, de la web a la máquina.
@@ -141,7 +141,19 @@ export const assembler = {
 export const about = {
   paragraphs: [
     'Me gusta entender qué pasa debajo de lo que uso, y por eso las materias de bajo nivel están entre las que más disfruto. También sigo de cerca lo que sale en inteligencia artificial.',
-    'Fuera de la cursada hago sitios web y practico programación competitiva. Últimamente me estoy metiendo en ciberseguridad con CTFs.',
+    'Fuera de la cursada hago sitios web y practico programación competitiva. También juego al básquet.',
+  ],
+  // Párrafo de ciberseguridad, en partes: los textos van tal cual y los
+  // objetos { text, url } se muestran como enlaces. Lo confirmó Lautaro; el
+  // repo CTF-Writeups de su GitHub es un fork sin commits suyos y no se usa.
+  security: [
+    'Me gusta la ciberseguridad. Resuelvo CTFs en ',
+    { text: 'Hack The Box', url: 'https://www.hackthebox.com' },
+    ', ',
+    { text: 'picoCTF', url: 'https://picoctf.org' },
+    ' y el ',
+    { text: 'HackLab de Software Seguro', url: 'https://www.softwareseguro.com.ar' },
+    ', y participo en eventos del tema.',
   ],
   facts: [
     { term: 'Estudio', value: 'Ingeniería en Sistemas de Información, UTN Facultad Regional Resistencia' },

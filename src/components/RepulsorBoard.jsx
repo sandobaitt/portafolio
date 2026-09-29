@@ -235,7 +235,11 @@ const RepulsorBoard = ({ onRotate }) => {
                 cell.power ? ', casilla verde' : ''
               }${here.length ? `, ${here.join(' y ')} acá` : ''}`}
             >
-              <span className="rb-arrow" style={{ '--turns': cell.turns, '--c': i % SIZE }}>
+              <span
+                className="rb-arrow"
+                data-scrub=""
+                style={{ '--turns': cell.turns, '--scrub': `cover ${i % SIZE}% cover ${12 + (i % SIZE)}%` }}
+              >
                 <Arrow />
               </span>
               {cell.power && (

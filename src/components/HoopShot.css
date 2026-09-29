@@ -1,0 +1,310 @@
+/* =====================================================================
+   Tiro al aro (sección Contacto)
+
+   Ajustes rápidos, todos en .shot:
+   --scrub                    Tramo del scroll en que se hace el tiro,
+                              medido sobre la propia cancha: "cover 10%" es
+                              cuando la cancha asoma por abajo de la pantalla.
+                              Más separados = tiro más lento. Lo usan la
+                              versión nativa y el respaldo de Firefox.
+   --shot-width               Ancho de la cancha en escritorio ancho. La
+                              pelota escala con la cancha: en celular sale
+                              más chica sola.
+   --ball / --ball-seam       Colores de la pelota. Es el único naranja del
+                              sitio y vive solo acá.
+
+   Dónde se encesta: <HoopShot /> está en Contact.jsx.
+===================================================================== */
+.shot {
+  --scrub: cover 12% cover 56%;
+  --shot-width: min(36rem, 36vw);
+  --ball: #e8692d;
+  --ball-seam: #2b1407;
+
+  width: min(100%, 30rem);
+  margin: 0 0 clamp(1rem, 3vw, 2rem) auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.shot-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+/* Escritorio ancho: la cancha ocupa la columna libre a la derecha de
+   "Escribime", a la altura del título, sin tocar el texto ni el mail. */
+@media (min-width: 1280px) {
+  .contact .wrap {
+    position: relative;
+  }
+
+  .shot {
+    position: absolute;
+    top: 0;
+    right: var(--gutter);
+    width: var(--shot-width);
+    margin: 0;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   Dibujo. Estado de base = la pelota adentro de la red, que es lo que se
+   ve sin animación.
+--------------------------------------------------------------------- */
+.shot-line {
+  fill: none;
+  stroke: var(--machine-ink-2);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.shot-floor {
+  stroke: var(--machine-rule);
+}
+
+.shot-board {
+  fill: var(--machine-deep);
+  stroke: var(--machine-ink);
+  stroke-width: 2;
+}
+
+.shot-rim {
+  fill: none;
+  stroke: var(--machine-yellow);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+.shot-ball {
+  fill: var(--ball);
+}
+
+.shot-seam {
+  fill: none;
+  stroke: var(--ball-seam);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.shot-net {
+  fill: none;
+  stroke: var(--machine-ink);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0.85;
+  transform-box: fill-box;
+  transform-origin: 50% 0;
+}
+
+.shot-flash {
+  fill: none;
+  stroke: var(--machine-yellow);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.shot-swish {
+  fill: var(--machine-yellow);
+  font-family: var(--font-sans);
+  font-size: 26px;
+  font-weight: 800;
+  font-stretch: 125%;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* En SVG, los px de transform son unidades del viewBox: el tiro escala
+   con la cancha. */
+.shot-x {
+  transform: translateX(510px);
+}
+
+.shot-y {
+  transform: translateY(136px);
+}
+
+.shot-squash,
+.shot-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.shot-spin {
+  transform: rotate(-540deg);
+}
+
+/* ---------------------------------------------------------------------
+   Animación atada al scroll. Todas las partes usan la misma línea de
+   tiempo (--court), así la pelota, la red y el SWISH van sincronizados.
+--------------------------------------------------------------------- */
+@supports (animation-timeline: view()) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    .shot {
+      view-timeline: --court block;
+    }
+
+    .shot-x,
+    .shot-y,
+    .shot-squash,
+    .shot-spin,
+    .shot-net,
+    .shot-flash,
+    .shot-swish {
+      animation-duration: auto;
+      animation-fill-mode: both;
+      animation-timing-function: linear;
+      animation-timeline: --court;
+      animation-range: var(--scrub);
+    }
+
+    .shot-x {
+      animation-name: shot-x;
+    }
+    .shot-y {
+      animation-name: shot-y;
+    }
+    .shot-squash {
+      animation-name: shot-squash;
+    }
+    .shot-spin {
+      animation-name: shot-spin;
+    }
+    .shot-net {
+      animation-name: shot-net;
+    }
+    .shot-flash {
+      animation-name: shot-flash;
+    }
+    .shot-swish {
+      animation-name: shot-swish;
+    }
+  }
+}
+
+/* Horizontal: velocidad constante hasta el aro (72%), después cae derecho. */
+@keyframes shot-x {
+  from {
+    transform: translateX(62px);
+  }
+  72%,
+  to {
+    transform: translateX(510px);
+  }
+}
+
+/* Vertical: sube frenando y baja acelerando (curvas cuadráticas), así la
+   trayectoria es una parábola. La cima está más cerca del aro que de la
+   mano porque el aro está más alto que el punto de salida. */
+@keyframes shot-y {
+  from {
+    transform: translateY(234px);
+    animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  45% {
+    transform: translateY(14px);
+    animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  }
+  72% {
+    transform: translateY(88px);
+    animation-timing-function: linear;
+  }
+  86% {
+    transform: translateY(120px);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  to {
+    transform: translateY(136px);
+  }
+}
+
+/* Squash & stretch sutil: comprimida al salir de la mano, estirada en el
+   arranque y aplastada cuando la frena la red. */
+@keyframes shot-squash {
+  from {
+    transform: scale(1.08, 0.9);
+  }
+  8% {
+    transform: scale(0.95, 1.06);
+  }
+  20%,
+  84% {
+    transform: scale(1);
+  }
+  90% {
+    transform: scale(1.08, 0.92);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Efecto hacia atrás, como un tiro bien lanzado. */
+@keyframes shot-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  72% {
+    transform: rotate(-500deg);
+  }
+  to {
+    transform: rotate(-540deg);
+  }
+}
+
+@keyframes shot-net {
+  from,
+  80% {
+    transform: none;
+  }
+  87% {
+    transform: scaleY(1.22) skewX(-5deg);
+  }
+  93% {
+    transform: scaleY(0.94) skewX(3deg);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes shot-flash {
+  from,
+  82% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  88% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+}
+
+@keyframes shot-swish {
+  from,
+  82% {
+    opacity: 0;
+    transform: translateY(8px) rotate(-8deg);
+  }
+  88%,
+  96% {
+    opacity: 1;
+    transform: rotate(-8deg);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-6px) rotate(-8deg);
+  }
+}

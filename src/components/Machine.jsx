@@ -12,7 +12,7 @@ const Machine = () => {
       aria-labelledby="assembler-title"
       style={{ '--layer-prev': 'var(--steel)', '--layer-bg': 'var(--machine)' }}
     >
-      <span className="layer-fill" aria-hidden="true" />
+      <span className="layer-fill" aria-hidden="true" data-scrub="" />
 
       <div className="wrap machine-intro">
         <header className="section-head">

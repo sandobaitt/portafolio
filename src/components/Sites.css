@@ -63,6 +63,17 @@
   height: auto;
 }
 
+/* Tramos del scroll (versión nativa y respaldo). */
+.site-phone {
+  --scrub: entry 10% cover 45%;
+}
+.site-desktop img {
+  --scrub: cover 22% cover 88%;
+}
+.site-phone img {
+  --scrub: cover 30% cover 92%;
+}
+
 .site--flip .site-phone {
   right: auto;
   left: 0;
@@ -88,19 +99,19 @@
     .site-phone {
       animation: phone-rise linear both;
       animation-timeline: view();
-      animation-range: entry 10% cover 45%;
+      animation-range: var(--scrub);
     }
 
     .site-desktop img {
       animation: site-scroll-desktop linear both;
       animation-timeline: --shot;
-      animation-range: cover 22% cover 88%;
+      animation-range: var(--scrub);
     }
 
     .site-phone img {
       animation: site-scroll-phone linear both;
       animation-timeline: --shot;
-      animation-range: cover 30% cover 92%;
+      animation-range: var(--scrub);
     }
   }
 }

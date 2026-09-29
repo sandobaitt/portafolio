@@ -5,7 +5,7 @@ import './Hero.css';
 
 const Hero = () => {
   return (
-    <section id="inicio" className="hero ground-paper" data-ground="paper">
+    <section id="inicio" className="hero ground-paper" data-ground="paper" data-scrub="">
       <div className="wrap hero-grid">
         <div className="hero-copy">
           <h1 className="hero-name">

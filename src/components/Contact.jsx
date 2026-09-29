@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Check, Copy } from 'lucide-react';
 import { contact, person } from '../content';
 import ExternalLink from './ExternalLink';
+import HoopShot from './HoopShot';
 import './Contact.css';
 
 const Contact = () => {
@@ -30,9 +31,10 @@ const Contact = () => {
       aria-labelledby="contacto-title"
       style={{ '--layer-prev': 'var(--paper)', '--layer-bg': 'var(--machine)' }}
     >
-      <span className="layer-fill" aria-hidden="true" />
+      <span className="layer-fill" aria-hidden="true" data-scrub="" />
       <div className="wrap">
-        <h2 id="contacto-title" className="contact-title">
+        <HoopShot />
+        <h2 id="contacto-title" className="contact-title" data-scrub="">
           {contact.heading}
         </h2>
         <p className="contact-text">{contact.text}</p>

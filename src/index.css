@@ -377,6 +377,7 @@ kbd {
 }
 
 .layer-fill {
+  --scrub: entry 0% entry 70%;
   display: none;
 }
 
@@ -396,7 +397,7 @@ kbd {
       pointer-events: none;
       animation: layer-in linear both;
       animation-timeline: view();
-      animation-range: entry 0% entry 70%;
+      animation-range: var(--scrub);
     }
   }
 }

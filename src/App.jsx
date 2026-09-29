@@ -8,11 +8,13 @@ import GithubActivity from './components/GithubActivity';
 import Contact from './components/Contact';
 import { sections } from './content';
 import { useScrollSections } from './hooks/useScrollSections';
+import { useScrubFallback } from './hooks/useScrubFallback';
 
 const ids = sections.map((s) => s.id);
 
 function App() {
   const { active, ground } = useScrollSections(ids);
+  useScrubFallback();
 
   return (
     <>

@@ -19,7 +19,7 @@ const Repulsor = () => {
       aria-labelledby="repulsor-title"
       style={{ '--layer-prev': 'var(--paper)', '--layer-bg': 'var(--steel)' }}
     >
-      <span className="layer-fill" aria-hidden="true" />
+      <span className="layer-fill" aria-hidden="true" data-scrub="" />
       <div className="wrap repulsor-grid">
         <header className="section-head repulsor-head">
           <h2 id="repulsor-title" className="section-title">

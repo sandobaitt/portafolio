@@ -140,7 +140,8 @@
     .rb-arrow {
       animation: rb-wave linear both;
       animation-timeline: view();
-      animation-range: cover calc(var(--c) * 1%) cover calc(12% + var(--c) * 1%);
+      /* --scrub viene de cada flecha: cada columna se atrasa 1%. */
+      animation-range: var(--scrub);
     }
   }
 }

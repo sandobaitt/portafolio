@@ -60,6 +60,7 @@ Con el scroll (CSS `animation-timeline`, salvo la máquina)
 - Herramientas: cada franja entra al marco desde un costado, alternando.
 - GitHub: el calendario se dibuja de izquierda a derecha (máscara con `--reveal`).
 - Contacto: "Escribime" se abre con el eje `wdth` de Archivo, de 62% a 125%.
+- Contacto, tiro al aro (`HoopShot.jsx`): una pelota hace una parábola y encesta en un aro dibujado de perfil. Gira con efecto hacia atrás, se estira y se aplasta apenas al salir y al frenarse en la red; al encestar la red se sacude y aparece "SWISH" con un destello de líneas. Vive en su propio espacio: a la derecha de "Escribime" desde 1280 px, y en una franja arriba del título en tablet y celular. Sin animación se ve la pelota adentro de la red. Es el único naranja del sitio y está solo en la pelota. Los ajustes (tramo de scroll, ancho, colores) están al principio de `HoopShot.css`.
 - Barra superior: una línea de profundidad marca cuánto bajaste; en celular, al lado del nombre, aparece la sección actual.
 
 Interacción
@@ -67,9 +68,11 @@ Interacción
 - Las capas del corte se agrandan al pasar el mouse.
 
 Garantías
-- Todo lo de scroll en CSS está dentro de `@supports (animation-timeline: view())` y `@media screen and (prefers-reduced-motion: no-preference)`. Sin soporte (por ejemplo Firefox 156) o con movimiento reducido, todo se ve en su estado final, quieto. La máquina sigue funcionando porque la maneja JS.
+- Todo lo de scroll en CSS está dentro de `@supports (animation-timeline: view())` y `@media screen and (prefers-reduced-motion: no-preference)`. Con movimiento reducido todo se ve en su estado final, quieto.
+- Navegadores sin `animation-timeline` (Firefox 156 incluido): `useScrubFallback` mide los mismos tramos (`--scrub`) con JS y `scroll-fallback.css` mueve las mismas `@keyframes` pausadas y adelantadas según el progreso. Se ve igual que en Chrome.
+- Contacto ocupa al menos una pantalla: al ser la última sección, así siempre queda scroll para que el tiro al aro termine.
 - Los contenedores que recortan y tienen animaciones de scroll adentro usan `overflow: clip`, no `hidden`: `hidden` los vuelve contenedores de scroll y congela las animaciones de sus hijos.
-- Verificado en Chrome a 1440, 820 y 390 px, en claro y oscuro, sin desborde horizontal; y en Firefox sin soporte.
+- Verificado en Chrome y Firefox a 1920, 1440, 820 y 390 px, en claro y oscuro, sin desborde horizontal.
 
 ## Superficies del navegador
 

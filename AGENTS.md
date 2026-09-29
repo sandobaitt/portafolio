@@ -13,11 +13,13 @@ Reglas para cualquier agente que trabaje en este repo. `PRODUCT.md` dice qué es
 - Tema claro por defecto; el oscuro sigue a `prefers-color-scheme` y se puede elegir con el botón. Todo color nuevo necesita su valor en ambos temas.
 - Tipografías: Archivo (con eje de ancho, expandida para títulos) y Chivo Mono, las dos de Omnibus-Type. No usar Inter, Outfit, Montserrat ni otras fuentes genéricas.
 - Monoespaciada solo para código y datos (fechas, bits, etiquetas de profundidad).
+- El básquet aparece solo en el tiro al aro de Contacto y en una frase de "Sobre mí". El naranja de la pelota no se usa en ningún otro lado.
 - Prohibido: texto con gradiente, etiquetas o "badges" arriba de los títulos, brillos (`box-shadow` de color sin desplazamiento), emojis como íconos, tarjetas iguales con ícono + título + texto como estructura de la página.
 - Contraste mínimo 4.5:1 para texto, verificado en los dos temas.
 - El contenido se ve por defecto. Nada de `opacity: 0` esperando a que la sección entre en pantalla.
 - Movimiento: cada animación muestra un mecanismo real del trabajo, y el scroll es la bajada por las capas (detalle en `DESIGN.md`). No agregar efectos decorativos sueltos ni la misma entrada en todas las secciones.
 - Animaciones de scroll: siempre dentro de `@supports (animation-timeline: view())` y `@media screen and (prefers-reduced-motion: no-preference)`, con el contenido visible si no corren. Si un contenedor recorta y tiene animaciones de scroll adentro, usar `overflow: clip`, nunca `hidden`.
+- Toda animación de scroll necesita también su respaldo para navegadores sin soporte (Firefox): el tramo va en la variable `--scrub` (fuera del `@supports`) y la versión nativa usa `animation-range: var(--scrub)`; el elemento lleva `data-scrub` (vacío, o el selector del ancestro que se mide), y en `src/scroll-fallback.css` se agrega la regla con la misma animación pausada y `animation-delay: calc(var(--p) * -1s)`. El motor es `useScrubFallback`.
 
 ## 3. Contenido y textos
 
@@ -38,9 +40,9 @@ Reglas para cualquier agente que trabaje en este repo. `PRODUCT.md` dice qué es
 2. Sitios publicados: IKIGAI y CCR, con capturas reales de escritorio y celular (`public/work/`).
 3. Repulsor: texto, método `rotar90` del repo y el tablero jugable (`RepulsorBoard.jsx`).
 4. Assembler 8086: el final del 28/08/2025 y la figura de los bits en octal.
-5. Sobre mí: foto, texto, estudio e idiomas, y las herramientas en tres franjas como el corte de la portada.
+5. Sobre mí: foto, texto (con un párrafo de ciberseguridad y enlaces a las plataformas de CTF), estudio e idiomas, y las herramientas en tres franjas como el corte de la portada.
 6. GitHub: calendario y repos recientes desde la API.
-7. Contacto: mail con botón de copiar y redes con su logo. El pie lleva solo el © y "Volver arriba".
+7. Contacto: el tiro al aro (`HoopShot.jsx`), mail con botón de copiar y redes con su logo. El pie lleva solo el © y "Volver arriba".
 
 ## 6. Antes de dar algo por terminado
 

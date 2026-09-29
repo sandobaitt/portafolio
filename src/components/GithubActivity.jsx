@@ -58,7 +58,7 @@ const GithubActivity = () => {
           <p className="section-sub">{github.intro}</p>
         </header>
 
-        <div className="github-calendar">
+        <div className="github-calendar" data-scrub="">
           <GitHubCalendar
             username={person.githubUser}
             colorScheme={theme}

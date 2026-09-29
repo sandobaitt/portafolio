@@ -4,6 +4,7 @@ import '@fontsource-variable/archivo/wdth.css'
 import '@fontsource/chivo-mono/400.css'
 import '@fontsource/chivo-mono/500.css'
 import './index.css'
+import './scroll-fallback.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(

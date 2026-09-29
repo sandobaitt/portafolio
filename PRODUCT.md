@@ -22,7 +22,9 @@ Modo: portafolio (el trabajo manda desde la primera pantalla). Acción principal
 | Repulsor | TPI de Paradigmas de Programación, equipo de 6. Juego de tablero en Pharo (Spec) con prototipo en Python. Reglas en `Celda>>rotar90` y `JuegoEnEjecucion>>avanzarJugador:`. | README y código de `sandobaitt/TPI-Paradigmas-` |
 | Assembler | Repo con Mariano Del Valle y Paula Kozak. Lautaro escribió el resumen de fundamentos y resolvió 14 finales (2022 a 2026). emu8086. | README y árbol de `sandobaitt/Assembler` |
 
-Otros datos: inglés técnico entre B1 y B2; intereses en programación competitiva, ciberseguridad (CTF) e inteligencia artificial (del perfil de GitHub y del sitio anterior).
+Otros datos: juega al básquet (lo confirmó Lautaro); inglés técnico entre B1 y B2; intereses en programación competitiva e inteligencia artificial (del perfil de GitHub y del sitio anterior).
+
+Ciberseguridad (lo confirmó Lautaro): le gusta, participa en eventos del tema y resuelve CTFs en Hack The Box, picoCTF y el HackLab de Software Seguro (softwareseguro.com.ar). El repo `CTF-Writeups` de su GitHub es un fork de `gonzaorban/CTF-Writeups` sin commits suyos: esos writeups no son de él y no se muestran ni se linkean. Faltan, si los quiere sumar: sus perfiles en las plataformas, nombres de eventos y writeups propios.
 
 ## Lo que no se afirma
 

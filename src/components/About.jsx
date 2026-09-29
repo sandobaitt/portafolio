@@ -23,6 +23,17 @@ const About = () => {
               Sobre mí
             </h2>
             <p className="about-lead">{lead}</p>
+            <p className="about-p">
+              {about.security.map((part, i) =>
+                typeof part === 'string' ? (
+                  part
+                ) : (
+                  <a key={i} href={part.url} target="_blank" rel="noopener noreferrer">
+                    {part.text}
+                  </a>
+                ),
+              )}
+            </p>
             {rest.map((p) => (
               <p key={p.slice(0, 24)} className="about-p">
                 {p}
@@ -46,7 +57,7 @@ const About = () => {
           </h3>
           <div className="stack-layers">
             {about.tools.map((layer) => (
-              <div key={layer.id} className={`stack-layer stack-layer--${layer.id}`}>
+              <div key={layer.id} className={`stack-layer stack-layer--${layer.id}`} data-scrub="">
                 <p className="stack-name">{layer.name}</p>
                 <ul className="stack-items" aria-label={layer.name}>
                   {layer.items.map((item) => (

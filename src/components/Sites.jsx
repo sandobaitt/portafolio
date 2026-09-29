@@ -25,6 +25,7 @@ const Sites = () => {
               >
                 <span className="site-desktop">
                   <img
+                    data-scrub=".site-shots"
                     src={site.desktop}
                     alt={`El sitio de ${site.name} en computadora`}
                     width="1440"
@@ -33,8 +34,9 @@ const Sites = () => {
                     decoding="async"
                   />
                 </span>
-                <span className="site-phone">
+                <span className="site-phone" data-scrub="">
                   <img
+                    data-scrub=".site-shots"
                     src={site.mobile}
                     alt={`El sitio de ${site.name} en celular`}
                     width="390"

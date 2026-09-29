@@ -1,4 +1,6 @@
 .hero {
+  /* Tramo del despiece del corte (lo usan la versión nativa y el respaldo). */
+  --scrub: exit 0% exit 50%;
   padding-block: clamp(2.5rem, 6vw, 5rem) clamp(4rem, 8vw, 6.5rem);
   overflow-x: clip;
 }
@@ -422,13 +424,13 @@
         strata-drill 1.15s cubic-bezier(0.65, 0, 0.2, 1) 0.15s backwards,
         strata-open linear both;
       animation-timeline: auto, --hero;
-      animation-range: normal, exit 0% exit 50%;
+      animation-range: normal, var(--scrub);
     }
 
     .stratum {
       animation: stratum-split linear both;
       animation-timeline: --hero;
-      animation-range: exit 0% exit 50%;
+      animation-range: var(--scrub);
     }
   }
 }
