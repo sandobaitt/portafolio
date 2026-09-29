@@ -1,114 +1,102 @@
-.github-container-sleek {
-  background: var(--surface-color);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 2rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.github-header-sleek {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-color);
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.github-profile-sleek {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-.github-avatar-sleek {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 2px solid var(--border-color);
-  object-fit: cover;
-}
-
-.github-info-sleek h3 {
-  font-size: 1.25rem;
-  color: var(--text-primary);
-  margin-bottom: 0.2rem;
-}
-
-.github-username-sleek {
-  font-size: 0.9rem;
-  color: var(--accent-color);
-  text-decoration: none;
-}
-
-.github-stats-sleek {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.g-stat-sleek {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.github-calendar-wrapper {
-  display: flex;
-  justify-content: center;
+.github-calendar {
+  max-width: 100%;
+  padding-bottom: 0.5rem;
   overflow-x: auto;
-  padding: 1rem 0;
+  color: var(--ink-2);
+  font-size: 0.875rem;
 }
 
-.github-calendar-wrapper,
-.github-calendar-wrapper * {
-  scrollbar-width: none !important; /* Firefox */
-  -ms-overflow-style: none !important; /* IE and Edge */
+.github-calendar svg text {
+  fill: var(--ink-3);
 }
 
-.github-calendar-wrapper::-webkit-scrollbar,
-.github-calendar-wrapper *::-webkit-scrollbar {
-  display: none !important; /* Chrome, Safari, Opera */
-  width: 0 !important;
-  height: 0 !important;
+/* El calendario se dibuja semana por semana mientras entra. */
+@supports (animation-timeline: view()) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    .github-calendar {
+      -webkit-mask-image: linear-gradient(90deg, #000 calc(var(--reveal) - 12%), transparent var(--reveal));
+      mask-image: linear-gradient(90deg, #000 calc(var(--reveal) - 12%), transparent var(--reveal));
+      animation: calendar-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 20% cover 48%;
+    }
+  }
 }
 
-/* Customize the react-github-calendar text */
-.react-activity-calendar {
-  color: var(--text-secondary);
-  font-family: var(--font-body);
+@keyframes calendar-draw {
+  from {
+    --reveal: 0%;
+  }
+  to {
+    --reveal: 112%;
+  }
 }
 
-@media (max-width: 768px) {
-  .github-container-sleek {
-    padding: 1.25rem;
-    border-radius: 10px;
+.github-repos {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: clamp(3rem, 6vw, 4.5rem);
+  max-width: 48rem;
+}
+
+.repo-list {
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.repo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 8rem 9rem;
+  gap: 1rem;
+  align-items: baseline;
+  padding-block: 0.85rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.repo-name {
+  font-weight: 650;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.repo-name:hover {
+  text-decoration: underline;
+}
+
+.repo-lang,
+.repo-date {
+  color: var(--ink-2);
+  font-size: 0.875rem;
+}
+
+.repo-date {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.repo--skeleton {
+  height: 3.1rem;
+  background: linear-gradient(90deg, transparent, var(--steel) 45%, transparent 90%) 0 0 / 200% 100%;
+  animation: repo-wait 1.4s linear infinite;
+}
+
+@keyframes repo-wait {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.github-error {
+  color: var(--ink-2);
+}
+
+@media (max-width: 560px) {
+  .repo {
+    grid-template-columns: minmax(0, 1fr) auto;
   }
 
-  .github-header-sleek {
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-  }
-  
-  .github-stats-sleek {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .github-avatar-sleek {
-    width: 48px;
-    height: 48px;
-  }
-
-  .github-info-sleek h3 {
-    font-size: 1.1rem;
+  .repo-lang {
+    display: none;
   }
 }

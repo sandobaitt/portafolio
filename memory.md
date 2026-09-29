@@ -1,20 +1,19 @@
-# Memory & Progress Tracking
+# Memoria y estado
 
-Este documento registra los aprendizajes, decisiones tomadas y el estado actual del desarrollo del portafolio.
+## Estado actual (29/09/2026)
+- [x] Rediseño completo con el concepto de capas (web, objetos, máquina). Ver `DESIGN.md`.
+- [x] Textos reescritos a partir de los README de cada repo. Ver `PRODUCT.md`.
+- [x] Repulsor jugable en la página, con las reglas del código en Pharo.
+- [x] Tema claro y oscuro, contraste verificado, navegación por teclado en el tablero.
+- [x] Imagen para vistas previas (`public/og.png`) y metadatos Open Graph.
 
-## Estado Actual
-- [x] Análisis inicial de repositorios de diseño (ui-ux-pro-max-skill seleccionado).
-- [x] Creación de documento de reglas `AGENTS.md`.
-- [x] Planificación del Design System (Minimalismo, Dark/Light Mode, Animaciones).
-- [ ] Definición del contenido del portafolio (textos, proyectos, links).
-- [ ] Inicialización del proyecto (Vite + React).
-- [ ] Desarrollo de componentes base.
+## Pendiente (necesita a Lautaro)
+- CV en PDF para descargar desde el sitio.
+- Dominio propio: si cambia, actualizar `canonical` y `og:*` en `index.html`.
+- Confirmar si hay más trabajos publicados para sumar a "Sitios publicados".
 
-## Aprendizajes y Decisiones de Diseño
-- **Estilo:** Minimalista.
-- **Interacciones:** Scroll animations y micro-interacciones.
-- **Secciones aprobadas:** Hero, Sobre Mí, Habilidades, Proyectos, Contribuciones en GitHub (NUEVO), Contacto.
-- **Estructura de personalización:** Entendido el uso de la carpeta `.agents` para almacenar custom skills locales o reglas si es necesario aislar funcionalidades.
-
-## Pendiente (Blocked by User Input)
-- Esperando respuestas del usuario sobre el contenido real que irá en el portafolio (Textos, links, proyectos específicos, etc).
+## Decisiones
+- Público doble: clientes de la zona y reclutadores, con el mismo peso.
+- Proyectos principales: IKIGAI, CCR, Repulsor y Assembler.
+- Sin 21st.dev ni componentes de catálogo: todo está hecho a mano para que no se parezca a otros portafolios.
+- Se sacaron el fondo de partículas 3D, el cursor propio y la navegación en píldoras.

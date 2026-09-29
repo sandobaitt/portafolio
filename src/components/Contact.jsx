@@ -1,44 +1,81 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Mail } from 'lucide-react';
-import { FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
+import { Check, Copy } from 'lucide-react';
+import { contact, person } from '../content';
+import ExternalLink from './ExternalLink';
 import './Contact.css';
 
 const Contact = () => {
-  return (
-    <section className="contact section container" id="contact">
-      <motion.div
-        className="contact-content"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="contact-status-badge">
-          <span className="status-dot"></span>
-          <span>Disponible para proyectos y consultas técnicas</span>
-        </div>
-        <h2 className="section-title">Contáctame</h2>
-        <p className="contact-text">
-          ¿Tienes algún proyecto en mente o simplemente quieres conectar? 
-          Mis bandejas de entrada están siempre abiertas.
-        </p>
+  const [copied, setCopied] = useState(false);
 
-        <div className="contact-links-compact">
-          <a href="mailto:lautaroemanuelsandoval@gmail.com" className="contact-icon-btn" aria-label="Email">
-            <Mail size={24} />
-            <span>Email</span>
+  useEffect(() => {
+    if (!copied) return;
+    const t = setTimeout(() => setCopied(false), 2200);
+    return () => clearTimeout(t);
+  }, [copied]);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(person.email);
+      setCopied(true);
+    } catch {
+      // Sin permiso de portapapeles queda el enlace mailto.
+    }
+  };
+
+  return (
+    <section
+      id="contacto"
+      className="contact ground-machine layer"
+      data-ground="machine"
+      aria-labelledby="contacto-title"
+      style={{ '--layer-prev': 'var(--paper)', '--layer-bg': 'var(--machine)' }}
+    >
+      <span className="layer-fill" aria-hidden="true" />
+      <div className="wrap">
+        <h2 id="contacto-title" className="contact-title">
+          {contact.heading}
+        </h2>
+        <p className="contact-text">{contact.text}</p>
+
+        <div className="contact-mail">
+          <a className="contact-address" href={`mailto:${person.email}`}>
+            {person.email.split('@')[0]}@<wbr />
+            {person.email.split('@')[1]}
           </a>
-          <a href="https://www.linkedin.com/in/lautarosandoval" target="_blank" rel="noopener noreferrer" className="contact-icon-btn" aria-label="LinkedIn">
-            <FaLinkedin size={24} />
-            <span>LinkedIn</span>
-          </a>
-          <a href="https://instagram.com/lautisando_" target="_blank" rel="noopener noreferrer" className="contact-icon-btn" aria-label="Instagram">
-            <FaInstagram size={24} />
-            <span>Instagram</span>
-          </a>
+          <button type="button" className="btn btn-quiet contact-copy" onClick={copy}>
+            {copied ? <Check size={16} aria-hidden="true" /> : <Copy size={16} aria-hidden="true" />}
+            {copied ? 'Copiado' : 'Copiar'}
+          </button>
+          <span className="visually-hidden" role="status">
+            {copied ? 'Dirección copiada' : ''}
+          </span>
         </div>
-      </motion.div>
+
+        <ul className="contact-links">
+          <li>
+            <ExternalLink href={person.linkedin} brand="linkedin">
+              LinkedIn
+            </ExternalLink>
+          </li>
+          <li>
+            <ExternalLink href={person.github} brand="github">
+              GitHub
+            </ExternalLink>
+          </li>
+          <li>
+            <ExternalLink href={person.instagram} brand="instagram">
+              Instagram
+            </ExternalLink>
+          </li>
+        </ul>
+
+        <footer className="colophon">
+          <p>
+            © {new Date().getFullYear()} {person.fullName}
+          </p>
+          <a href="#inicio">Volver arriba</a>
+        </footer>
+      </div>
     </section>
   );
 };

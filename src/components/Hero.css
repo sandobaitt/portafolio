@@ -1,239 +1,514 @@
 .hero {
-  min-height: 100vh;
+  padding-block: clamp(2.5rem, 6vw, 5rem) clamp(4rem, 8vw, 6.5rem);
+  overflow-x: clip;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: stretch;
+  min-height: min(calc(100svh - var(--bar-h) - 7rem), 44rem);
+}
+
+.hero-copy {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  position: relative;
-  padding-top: 110px;
-  padding-bottom: 60px;
-}
-
-.hero-content {
-  max-width: 840px;
-  width: 100%;
-}
-
-/* Location Tag */
-.hero-location-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color);
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
-  margin-bottom: 1.25rem;
-}
-
-[data-theme='light'] .hero-location-tag {
-  background: rgba(0, 0, 0, 0.03);
-}
-
-.hero-profile-row {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.hero-avatar {
-  width: 86px;
-  height: 86px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid var(--border-color);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  flex-shrink: 0;
-}
-
-.hero-title-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+  gap: 1.75rem;
 }
 
 .hero-name {
-  font-size: clamp(2.3rem, 5.5vw, 3.8rem);
-  line-height: 1.1;
+  font-size: clamp(3.25rem, 8.4vw, 6rem);
+  font-stretch: 125%;
+  font-weight: 850;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+}
+
+.hero-lead {
+  max-width: 34rem;
+  font-size: clamp(1.125rem, 1.6vw, 1.3125rem);
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+.hero-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.75rem 1.5rem;
 }
 
-.verified-badge {
-  color: var(--accent-color);
+.hero-place {
+  color: var(--ink-3);
+  font-size: 0.9375rem;
 }
 
-/* Contactos Rápidos Iconos (Junto al nombre / avatar) */
-.hero-quick-contacts {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-}
-
-.hero-contact-icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  text-decoration: none;
-}
-
-[data-theme='light'] .hero-contact-icon-btn {
-  background: rgba(0, 0, 0, 0.04);
-}
-
-.hero-contact-icon-btn:hover {
-  background: var(--accent-color);
-  border-color: var(--accent-color);
-  color: #ffffff;
-  transform: translateY(-2px);
-}
-
-.hero-role {
-  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-  margin-bottom: 1.25rem;
-  color: var(--text-primary);
-  font-weight: 500;
-}
-
-.hero-description {
-  font-size: 1.08rem;
-  color: var(--text-secondary);
-  max-width: 680px;
-  margin-bottom: 2.25rem;
-  line-height: 1.75;
-}
-
-/* Actions & Contact Container */
-.hero-actions-container {
+/* ------------------------------------------------------------------
+   El corte: tres capas apiladas, cada una lleva a su sección.
+------------------------------------------------------------------- */
+/* Las capas llevan su propio borde: juntas parecen un bloque y al bajar se
+   pueden separar sin que el contenedor las recorte. */
+.strata {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  min-height: 30rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow-lift);
 }
 
-.hero-cta {
+.stratum {
+  --label-w: 9.5rem;
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--label-w) minmax(0, 1fr);
+  flex: 1 1 0;
+  min-height: 0;
+  color: var(--ink);
+  text-decoration: none;
+  overflow: hidden;
+  border: 1px solid var(--rule-strong);
+  transition: flex-grow 0.6s var(--ease-out);
+}
+
+.stratum + .stratum {
+  margin-top: -1px;
+}
+
+.stratum:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
+.stratum:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+.stratum--sitios {
+  flex-grow: 1.7;
+  background: var(--paper-raised);
+}
+
+.stratum--repulsor {
+  background: var(--steel);
+}
+
+.stratum--assembler {
+  background: var(--machine);
+  color: var(--machine-ink);
+  border-color: var(--machine-deep);
+}
+
+@media (hover: hover) {
+  .strata:hover .stratum {
+    flex-grow: 0.85;
+  }
+  .strata:hover .stratum--sitios {
+    flex-grow: 1.45;
+  }
+  .strata .stratum:hover {
+    flex-grow: 1.35;
+  }
+  .strata .stratum--sitios:hover {
+    flex-grow: 2;
+  }
+}
+
+.stratum-label {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.15rem;
+  padding: 1rem 1.1rem;
+  border-right: 1px solid var(--rule);
 }
 
-.btn-sleek {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.6rem;
-  background-color: var(--text-primary);
-  color: var(--bg-color);
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.2s ease;
-  font-family: var(--font-heading);
-  text-decoration: none;
+.stratum--assembler .stratum-label {
+  border-right-color: var(--machine-rule);
 }
 
-.btn-sleek:hover {
-  background-color: var(--accent-color);
-  transform: translateY(-2px);
-  color: var(--bg-color);
+.stratum-depth {
+  margin-bottom: auto;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--ink-3);
 }
 
-.btn-sleek-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background-color: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  text-decoration: none;
+.stratum--assembler .stratum-depth {
+  color: var(--machine-ink-2);
 }
 
-.btn-sleek-secondary:hover {
-  border-color: var(--accent-color);
-  color: var(--accent-color);
-  transform: translateY(-2px);
+.stratum-title {
+  font-weight: 750;
+  font-stretch: 110%;
+  line-height: 1.15;
 }
 
+.stratum-detail {
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
 
+.stratum--assembler .stratum-detail {
+  color: var(--machine-ink-2);
+}
 
-/* Scroll indicator */
-.scroll-indicator {
+.stratum:hover .stratum-title,
+.stratum:focus-visible .stratum-title {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.stratum:focus-visible {
+  outline-offset: -4px;
+}
+
+.stratum-visual {
+  position: relative;
+  overflow: hidden;
+}
+
+.stratum-shot {
   position: absolute;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-  color: var(--text-secondary);
+  object-fit: cover;
+  object-position: top left;
+  border: 1px solid var(--rule);
+  background: #fff;
 }
 
-.bounce {
-  animation: bounce 2s infinite;
+.stratum-shot--desktop {
+  top: 1.1rem;
+  left: 1.1rem;
+  height: calc(100% - 1.1rem);
+  width: auto;
+  max-width: none;
+  aspect-ratio: 16 / 10;
+  border-right: 0;
+  border-bottom: 0;
+  border-radius: 5px 0 0 0;
 }
 
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-8px); }
-  60% { transform: translateY(-4px); }
+/* Celular de CCR: una ventana con la captura larga adentro */
+.stratum-phone {
+  position: absolute;
+  right: 1.1rem;
+  top: 2.4rem;
+  width: 22%;
+  min-width: 5.5rem;
+  aspect-ratio: 390 / 844;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: var(--shadow-lift);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .hero {
-    padding-top: 90px;
-    padding-bottom: 40px;
-    align-items: center;
-    text-align: center;
+.stratum-phone img {
+  width: 100%;
+  height: auto;
+  transform: translateY(calc(-1 * var(--pan, 0%)));
+  transition: transform 1.4s var(--ease-out);
+}
+
+.stratum-phone[data-scrolling] img {
+  transition: transform 0.8s linear;
+}
+
+.stratum-code {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  white-space: pre;
+  overflow: hidden;
+}
+
+.stratum-line {
+  flex-shrink: 0;
+  overflow: hidden;
+  margin-inline: -0.4rem;
+  padding-inline: 0.4rem;
+  border-radius: 2px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.stratum--repulsor .stratum-code {
+  padding-right: 4.25rem;
+  color: var(--ink-2);
+}
+
+.stratum--repulsor .stratum-line[data-on] {
+  background: var(--paper-raised);
+  color: var(--ink);
+}
+
+.stratum--assembler .stratum-code {
+  padding-right: 9.5rem;
+  color: var(--machine-ink-2);
+}
+
+.stratum--assembler .stratum-line[data-on] {
+  background: rgba(255, 225, 77, 0.16);
+  color: var(--machine-yellow);
+}
+
+/* La flecha de Repulsor, girando como en rotar90 */
+.stratum-arrow {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1rem;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 4px;
+  background: var(--paper-raised);
+  color: var(--ink);
+}
+
+.stratum-arrow svg {
+  width: 60%;
+  height: 60%;
+  transform: rotate(calc(var(--turns, 0) * 90deg));
+  transition: transform 0.6s var(--ease-out);
+}
+
+/* Registros de la capa máquina */
+.stratum-regs {
+  position: absolute;
+  right: 1.1rem;
+  top: 1rem;
+  display: grid;
+  gap: 0.15rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.6;
+  color: var(--machine-ink-2);
+  text-align: right;
+  opacity: 0.55;
+  transition: opacity 0.4s ease;
+}
+
+.stratum-regs[data-live] {
+  opacity: 1;
+}
+
+.stratum-regs b {
+  display: inline-block;
+  min-width: 8ch;
+  font-weight: 500;
+  color: var(--machine-ink);
+}
+
+.stratum-regs[data-live] b {
+  animation: reg-flash 0.7s ease-out;
+}
+
+@keyframes reg-flash {
+  from {
+    color: var(--machine-yellow);
   }
-  
-  .hero-profile-row {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .hero-name {
-    font-size: 2rem;
-    justify-content: center;
+}
+
+/* Indicador de la capa que se está recorriendo */
+.stratum::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.5s var(--ease-out);
+  z-index: 1;
+}
+
+.stratum--assembler::before {
+  background: var(--machine-yellow);
+}
+
+.stratum[data-active]::before {
+  transform: scaleY(1);
+}
+
+.stratum[data-active] .stratum-depth {
+  color: var(--accent);
+}
+
+.stratum--assembler[data-active] .stratum-depth {
+  color: var(--machine-yellow);
+}
+
+/* ------------------------------------------------------------------
+   Entrada: el nombre sale de una máscara y el corte se perfora de
+   arriba hacia abajo. Sin preferencia de movimiento reducido.
+------------------------------------------------------------------- */
+.hero-line {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-line {
+    overflow: hidden;
+    padding-block: 0.08em;
+    margin-block: -0.08em;
   }
 
-  .hero-quick-contacts {
-    justify-content: center;
+  .hero-line > span {
+    display: block;
+    animation: hero-rise 1s var(--ease-out) both;
   }
 
-  .hero-role {
-    font-size: 1.1rem;
+  .hero-line + .hero-line > span {
+    animation-delay: 0.09s;
   }
 
-  .hero-description {
-    font-size: 0.98rem;
-    line-height: 1.65;
-    margin-bottom: 1.75rem;
+  .hero-lead,
+  .hero-actions,
+  .hero-place {
+    animation: hero-fade 0.8s var(--ease-out) both;
   }
 
-  .hero-actions-container {
-    align-items: center;
+  .hero-lead {
+    animation-delay: 0.3s;
+  }
+  .hero-actions {
+    animation-delay: 0.42s;
+  }
+  .hero-place {
+    animation-delay: 0.54s;
   }
 
-  .hero-cta {
-    justify-content: center;
-    width: 100%;
+  .strata {
+    animation: strata-drill 1.15s cubic-bezier(0.65, 0, 0.2, 1) 0.15s backwards;
   }
 
-  .btn-sleek, .btn-sleek-secondary {
-    width: 100%;
-    justify-content: center;
+  .stratum-label > *,
+  .stratum-visual > * {
+    animation: hero-fade 0.7s var(--ease-out) backwards;
+  }
+
+  .stratum--sitios .stratum-label > *,
+  .stratum--sitios .stratum-visual > * {
+    animation-delay: 0.45s;
+  }
+  .stratum--repulsor .stratum-label > *,
+  .stratum--repulsor .stratum-visual > * {
+    animation-delay: 0.75s;
+  }
+  .stratum--assembler .stratum-label > *,
+  .stratum--assembler .stratum-visual > * {
+    animation-delay: 1.05s;
+  }
+}
+
+/* Al empezar a bajar, el corte se separa en sus capas: una vista en
+   despiece que anticipa el recorrido. Atado al scroll de la portada. */
+@supports (animation-timeline: view()) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    .hero {
+      view-timeline: --hero block;
+    }
+
+    .strata {
+      animation:
+        strata-drill 1.15s cubic-bezier(0.65, 0, 0.2, 1) 0.15s backwards,
+        strata-open linear both;
+      animation-timeline: auto, --hero;
+      animation-range: normal, exit 0% exit 50%;
+    }
+
+    .stratum {
+      animation: stratum-split linear both;
+      animation-timeline: --hero;
+      animation-range: exit 0% exit 50%;
+    }
+  }
+}
+
+@keyframes strata-open {
+  to {
+    box-shadow: 0 0 0 transparent;
+  }
+}
+
+@keyframes stratum-split {
+  to {
+    translate: calc((var(--i) - 1) * 8px) calc((var(--i) - 1) * 26px);
+    rotate: calc((var(--i) - 1) * 1deg);
+    border-radius: 8px;
+    box-shadow: var(--shadow-lift);
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    transform: translateY(105%);
+  }
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes strata-drill {
+  from {
+    clip-path: inset(0 0 100% 0 round 8px);
+  }
+  to {
+    clip-path: inset(0 0 0 0 round 8px);
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .strata {
+    min-height: 0;
+  }
+
+  .stratum {
+    --label-w: 8rem;
+    flex: none;
+    height: 7.5rem;
+  }
+
+  .stratum--sitios {
+    height: 12rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .stratum {
+    --label-w: 7.25rem;
+  }
+
+  .stratum--assembler .stratum-code {
+    padding-right: 8.25rem;
+  }
+
+  .stratum-regs {
+    font-size: 0.625rem;
+  }
+
+  .stratum-label {
+    padding: 0.85rem 0.8rem;
+  }
+
+  .stratum-title {
+    font-size: 0.9375rem;
   }
 }

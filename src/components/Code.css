@@ -1,0 +1,102 @@
+.code {
+  margin: 0;
+  min-width: 0;
+}
+
+.code pre {
+  overflow-x: auto;
+  padding: 1.1rem 0;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  tab-size: 4;
+  font-variant-ligatures: none;
+}
+
+.code pre:focus-visible {
+  outline-offset: -2px;
+}
+
+.code-line {
+  display: block;
+  padding-right: 1.25rem;
+}
+
+.code-line.is-active {
+  background: var(--code-active, rgba(28, 40, 184, 0.09));
+  box-shadow: inset 3px 0 0 var(--code-active-edge, var(--accent));
+}
+
+.code-line {
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.code-num {
+  display: inline-block;
+  width: 3.25ch;
+  margin-right: 1.25ch;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+  opacity: 0.45;
+}
+
+/* Smalltalk: panel claro, como el editor de código de Pharo */
+.code--st pre {
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  color: var(--ink);
+}
+
+.code--st .tk-com {
+  color: var(--ink-3);
+  font-style: italic;
+}
+.code--st .tk-sym {
+  color: var(--p2);
+}
+.code--st .tk-key {
+  color: var(--accent);
+  font-weight: 500;
+}
+.code--st .tk-op {
+  color: var(--ink-2);
+}
+
+/* Assembler: texto directo sobre el azul de la capa máquina */
+.code--asm {
+  --code-active: rgba(255, 225, 77, 0.14);
+  --code-active-edge: var(--machine-yellow);
+}
+
+.code--asm pre {
+  color: var(--machine-ink);
+  font-size: 0.78rem;
+}
+
+.code--asm .tk-op {
+  color: var(--machine-yellow);
+  font-weight: 500;
+}
+.code--asm .tk-reg {
+  color: var(--machine-cyan);
+}
+.code--asm .tk-num,
+.code--asm .tk-str {
+  color: #ffffff;
+  font-weight: 500;
+}
+.code--asm .tk-label {
+  color: #ffffff;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--machine-rule);
+  text-underline-offset: 0.25em;
+}
+.code--asm .tk-dir {
+  color: var(--machine-ink-2);
+}
+.code--asm .tk-com {
+  color: var(--machine-ink-2);
+  font-style: italic;
+}

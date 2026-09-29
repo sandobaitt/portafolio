@@ -1,0 +1,252 @@
+.rb {
+  --p0: var(--accent);
+  --p1: var(--p2);
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  max-width: 32rem;
+}
+
+/* Jugadores y vidas */
+.rb-players {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.rb-player {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 0.55rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--rule-strong);
+  border-radius: 6px;
+  background: var(--paper-raised);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.rb-player[data-turn] {
+  border-color: var(--pc);
+  box-shadow: inset 0 0 0 1px var(--pc);
+}
+
+.rb-player[data-out] {
+  opacity: 0.55;
+}
+
+.rb-player--0 {
+  --pc: var(--p0);
+}
+.rb-player--1 {
+  --pc: var(--p1);
+}
+
+.rb-player-dot {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: var(--pc);
+}
+
+.rb-player-name {
+  font-weight: 700;
+  font-stretch: 110%;
+}
+
+.rb-lives {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+}
+
+.rb-pips {
+  display: flex;
+  gap: 3px;
+}
+
+.rb-pip {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 1px;
+  background: var(--pc);
+}
+
+.rb-lives-num {
+  color: var(--ink-2);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tablero */
+.rb-board {
+  --gap: 3px;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--size), minmax(0, 1fr));
+  gap: var(--gap);
+  padding: var(--gap);
+  border-radius: 6px;
+  background: var(--rule-strong);
+  touch-action: manipulation;
+}
+
+.rb-cell {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: var(--paper-raised);
+  color: var(--ink);
+  transition: background-color 0.15s ease;
+}
+
+.rb-cell:hover {
+  background: var(--steel-raised);
+}
+
+.rb-cell:focus-visible {
+  z-index: 1;
+  outline-offset: 0;
+}
+
+.rb-cell.is-power {
+  background: var(--power-bg);
+  color: var(--power);
+}
+
+.rb-arrow {
+  width: 54%;
+  height: 54%;
+  transform: rotate(calc(var(--turns) * 90deg));
+  transition: transform 0.45s var(--ease-out);
+}
+
+.rb-arrow svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Al entrar el tablero, las flechas giran hasta su dirección en una ola
+   diagonal: cada fila entra a su tiempo y cada columna se atrasa un poco.
+   Usa la propiedad rotate, así no pisa el giro del juego (transform). */
+@supports (animation-timeline: view()) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    .rb-arrow {
+      animation: rb-wave linear both;
+      animation-timeline: view();
+      animation-range: cover calc(var(--c) * 1%) cover calc(12% + var(--c) * 1%);
+    }
+  }
+}
+
+@keyframes rb-wave {
+  from {
+    rotate: -180deg;
+    opacity: 0.2;
+  }
+}
+
+.rb-plus {
+  position: absolute;
+  top: 2px;
+  right: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* Fichas: una celda de ancho, se mueven con translate */
+.rb-token {
+  position: absolute;
+  top: var(--gap);
+  left: var(--gap);
+  display: grid;
+  place-items: center;
+  width: calc((100% - var(--gap) * (var(--size) + 1)) / var(--size));
+  aspect-ratio: 1;
+  pointer-events: none;
+  transform: translate(calc(var(--c) * (100% + var(--gap))), calc(var(--r) * (100% + var(--gap))));
+  transition: transform 0.4s var(--ease-out);
+}
+
+.rb-token--0 {
+  --pc: var(--p0);
+}
+.rb-token--1 {
+  --pc: var(--p1);
+}
+
+.rb-token-dot {
+  width: 56%;
+  height: 56%;
+  border: 2px solid var(--paper-raised);
+  border-radius: 50%;
+  background: var(--pc);
+  box-shadow: 0 2px 6px rgba(21, 23, 28, 0.35);
+}
+
+.rb-token[data-shared].rb-token--0 .rb-token-dot {
+  translate: -18% -18%;
+}
+.rb-token[data-shared].rb-token--1 .rb-token-dot {
+  translate: 18% 18%;
+}
+
+.rb-token[data-turn] .rb-token-dot {
+  outline: 2px solid var(--pc);
+  outline-offset: 2px;
+}
+
+/* Choque contra el borde: la ficha amaga salir y vuelve */
+.rb-token-dot[data-bump='0'] {
+  --bx: 0;
+  --by: -45%;
+}
+.rb-token-dot[data-bump='1'] {
+  --bx: 45%;
+  --by: 0;
+}
+.rb-token-dot[data-bump='2'] {
+  --bx: 0;
+  --by: 45%;
+}
+.rb-token-dot[data-bump='3'] {
+  --bx: -45%;
+  --by: 0;
+}
+
+.rb-token-dot[data-bump] {
+  animation: rb-bump 0.42s var(--ease-out);
+}
+
+@keyframes rb-bump {
+  40% {
+    transform: translate(var(--bx), var(--by)) scale(0.85);
+  }
+}
+
+/* Mensajes y controles */
+.rb-message {
+  min-height: 3.2em;
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+}
+
+.rb-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.rb-controls .btn {
+  min-height: 2.6rem;
+  padding: 0.55rem 1rem;
+  font-size: 0.9375rem;
+}

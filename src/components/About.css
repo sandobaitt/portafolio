@@ -1,89 +1,189 @@
-.about {
-  padding-top: 100px;
-}
-
-.section-title {
-  font-size: clamp(2rem, 5vw, 3rem);
-  margin-bottom: 3rem;
-  text-align: center;
-}
-
-.about-content {
+.about-grid {
   display: grid;
-  grid-template-columns: 3fr 2fr;
-  gap: 4rem;
+  grid-template-columns: minmax(0, 22rem) minmax(0, 1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
   align-items: start;
 }
 
-.about-text p {
+.about-photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 55% 28%;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lift);
+}
+
+.about-body {
+  display: grid;
+  gap: 1.25rem;
+  max-width: 46rem;
+}
+
+.about-body .section-title {
+  margin-bottom: 0.75rem;
+}
+
+.about-lead {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  max-width: 34ch;
+}
+
+.about-p {
+  color: var(--ink-2);
   font-size: 1.125rem;
-  color: var(--text-secondary);
-  margin-bottom: 1.5rem;
-  line-height: 1.8;
+  max-width: 58ch;
 }
 
-/* Redesigned stats: minimal highlights instead of boxy cards */
-.about-stats {
+.about-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 2.5rem;
+  margin-top: 1.25rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.about-facts dt {
+  margin-bottom: 0.3rem;
+  color: var(--ink-3);
+  font-size: 0.875rem;
+}
+
+.about-facts dd {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+
+/* ------------------------------------------------------------------
+   Herramientas: las mismas tres capas del corte de la portada.
+------------------------------------------------------------------- */
+.stack {
+  margin-top: clamp(4rem, 9vw, 6.5rem);
+}
+
+.stack-title {
+  margin-bottom: 1.25rem;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-stretch: 112%;
+}
+
+.stack-layers {
+  border: 1px solid var(--rule-strong);
+  border-radius: 8px;
+  /* clip y no hidden: hidden la vuelve contenedor de scroll y las franjas
+     medirían su animación contra ella en vez de contra la página. */
+  overflow: clip;
+  box-shadow: var(--shadow-lift);
+}
+
+.stack-layer {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.35rem 1.5rem;
+}
+
+.stack-layer + .stack-layer {
+  border-top: 1px solid var(--rule-strong);
+}
+
+.stack-layer--web {
+  background: var(--paper-raised);
+}
+
+.stack-layer--lenguajes {
+  background: var(--steel);
+}
+
+.stack-layer--sistemas {
+  --chip-border: var(--machine-rule);
+  --chip-bg: transparent;
+  --chip-hover: var(--machine-yellow);
+  background: var(--machine);
+  color: var(--machine-ink);
+  border-top-color: var(--machine-deep);
+}
+
+.stack-name {
+  font-size: 1.25rem;
+  font-weight: 750;
+  font-stretch: 115%;
+  letter-spacing: -0.01em;
+}
+
+.stack-items {
   display: flex;
-  flex-direction: column;
-  gap: 0;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0;
+  list-style: none;
 }
 
-.stat-item {
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--border-color);
+.stack-items li {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--chip-border, var(--rule-strong));
+  border-radius: 6px;
+  background: var(--chip-bg, var(--paper));
+  font-size: 0.9375rem;
+  font-weight: 550;
+  line-height: 1.2;
+  transition: border-color 0.2s ease, transform 0.2s var(--ease-out);
 }
 
-.stat-item:first-child {
-  border-top: 1px solid var(--border-color);
+.stack-layer--lenguajes .stack-items li {
+  background: var(--steel-raised);
 }
 
-.stat-number {
-  font-size: 1.5rem;
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
-  font-family: var(--font-heading);
-  font-weight: 700;
+.stack-items li:hover {
+  border-color: var(--chip-hover, var(--ink));
+  transform: translateY(-1px);
 }
 
-.stat-label {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  font-weight: 400;
-}
+/* Al entrar, cada franja se desliza dentro del marco desde un costado,
+   alternando, como capas que se insertan en la pila. */
+@supports (animation-timeline: view()) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    .stack-layer {
+      animation: stack-slide linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 38%;
+    }
 
-@media (max-width: 900px) {
-  .about-content {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
+    .stack-layer--lenguajes {
+      --from: 1;
+    }
   }
 }
 
-@media (max-width: 768px) {
-  .about {
-    padding-top: 60px;
+@keyframes stack-slide {
+  from {
+    translate: calc(var(--from, -1) * 18%) 0;
+    opacity: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .about-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .section-title {
-    font-size: 1.75rem;
-    margin-bottom: 1.5rem;
+  .about-photo {
+    max-width: 17rem;
   }
 
-  .about-text p {
-    font-size: 0.95rem;
-    line-height: 1.7;
-    margin-bottom: 1rem;
+  .about-facts {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .stat-item {
-    padding: 1.25rem 0;
-  }
-
-  .stat-number {
-    font-size: 1.25rem;
-  }
-
-  .stat-label {
-    font-size: 0.85rem;
+  .stack-layer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.9rem;
+    padding: 1.2rem 1.1rem;
   }
 }

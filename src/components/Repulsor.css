@@ -1,0 +1,69 @@
+.repulsor-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 32rem);
+  grid-template-areas:
+    'head play'
+    'text play'
+    'code play';
+  grid-template-rows: auto auto 1fr;
+  column-gap: clamp(2.5rem, 6vw, 6rem);
+}
+
+.repulsor-head {
+  grid-area: head;
+}
+
+.repulsor-text {
+  grid-area: text;
+  display: grid;
+  gap: 1.1rem;
+  max-width: 38rem;
+}
+
+.repulsor-code {
+  grid-area: code;
+  max-width: 38rem;
+  margin-top: 2.5rem;
+}
+
+.code-caption {
+  margin-top: 0.6rem;
+  color: var(--ink-3);
+  font-size: 0.875rem;
+}
+
+.repulsor-play {
+  grid-area: play;
+  align-self: start;
+  position: sticky;
+  top: calc(var(--bar-h) + 1.5rem);
+}
+
+.repulsor-play-title {
+  font-size: 1.5rem;
+  font-stretch: 112%;
+}
+
+.repulsor-play-note {
+  margin: 0.4rem 0 1.25rem;
+  max-width: 32rem;
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+}
+
+@media (max-width: 960px) {
+  .repulsor-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'head'
+      'text'
+      'play'
+      'code';
+    grid-template-rows: none;
+  }
+
+  .repulsor-play {
+    position: static;
+    margin-top: 3rem;
+  }
+}

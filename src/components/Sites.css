@@ -1,0 +1,178 @@
+.sites {
+  display: grid;
+  gap: clamp(4.5rem, 10vw, 8rem);
+}
+
+.site {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.site--flip {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
+}
+
+.site--flip .site-shots {
+  order: 2;
+}
+
+.site-shots {
+  position: relative;
+  display: block;
+  padding-bottom: 9%;
+  padding-right: 8%;
+}
+
+.site--flip .site-shots {
+  padding-right: 0;
+  padding-left: 8%;
+}
+
+/* Cada captura es una ventana: la imagen larga del sitio va adentro y se
+   desplaza con el scroll de la página. */
+.site-desktop,
+.site-phone {
+  display: block;
+  overflow: hidden;
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-lift);
+  transition: transform 0.5s var(--ease-out);
+}
+
+.site-desktop {
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+}
+
+.site-phone {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 24%;
+  aspect-ratio: 390 / 844;
+  border: 1px solid var(--rule-strong);
+  border-radius: 14px;
+}
+
+.site-desktop img,
+.site-phone img {
+  width: 100%;
+  height: auto;
+}
+
+.site--flip .site-phone {
+  right: auto;
+  left: 0;
+}
+
+.site-shots:hover .site-desktop {
+  transform: translateY(-4px);
+}
+
+.site-shots:hover .site-phone {
+  transform: translateY(-10px);
+}
+
+/* Mientras la pieza cruza la pantalla, el celular sube sobre la captura de
+   escritorio y los dos sitios se recorren por dentro, cada uno a su ritmo.
+   Donde no hay soporte se ve la portada de cada sitio, quieta. */
+@supports (animation-timeline: view()) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    .site-shots {
+      view-timeline: --shot block;
+    }
+
+    .site-phone {
+      animation: phone-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 45%;
+    }
+
+    .site-desktop img {
+      animation: site-scroll-desktop linear both;
+      animation-timeline: --shot;
+      animation-range: cover 22% cover 88%;
+    }
+
+    .site-phone img {
+      animation: site-scroll-phone linear both;
+      animation-timeline: --shot;
+      animation-range: cover 30% cover 92%;
+    }
+  }
+}
+
+@keyframes phone-rise {
+  from {
+    translate: 0 30%;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes site-scroll-desktop {
+  to {
+    transform: translateY(-48%);
+  }
+}
+
+@keyframes site-scroll-phone {
+  to {
+    transform: translateY(-42%);
+  }
+}
+
+.site-copy {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+.site-name {
+  font-size: clamp(1.625rem, 2.8vw, 2.25rem);
+  font-stretch: 110%;
+}
+
+.site-place {
+  margin-top: -0.5rem;
+  color: var(--ink-3);
+  font-size: 0.9375rem;
+}
+
+.site-summary {
+  max-width: 60ch;
+}
+
+.site-detail {
+  max-width: 60ch;
+  color: var(--ink-2);
+}
+
+.site-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 860px) {
+  .site,
+  .site--flip {
+    grid-template-columns: 1fr;
+  }
+
+  .site--flip .site-shots {
+    order: 0;
+    padding-left: 0;
+    padding-right: 8%;
+  }
+
+  .site--flip .site-phone {
+    left: auto;
+    right: 0;
+  }
+}

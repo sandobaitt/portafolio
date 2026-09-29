@@ -1,10 +1,40 @@
 <!doctype html>
-<html lang="en">
+<html lang="es-AR">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>Lautaro Sandoval · Sitios web y sistemas</title>
+    <meta
+      name="description"
+      content="Hago sitios web para instituciones de Resistencia y estudio Ingeniería en Sistemas de Información en la UTN. Proyectos en Next.js, Pharo y assembler 8086."
+    />
+    <meta name="author" content="Lautaro Emanuel Sandoval" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href="https://sando-portafolio.vercel.app/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:url" content="https://sando-portafolio.vercel.app/" />
+    <meta property="og:title" content="Lautaro Sandoval · Sitios web y sistemas" />
+    <meta
+      property="og:description"
+      content="Sitios para instituciones de Resistencia, un juego de tablero en Pharo y finales de assembler 8086 resueltos."
+    />
+    <meta property="og:image" content="https://sando-portafolio.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#f2f3f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)" />
+
+    <script>
+      // Aplica el tema guardado antes del primer render para evitar el destello.
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

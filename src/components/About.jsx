@@ -1,39 +1,63 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import { about, person } from '../content';
 import './About.css';
 
 const About = () => {
+  const [lead, ...rest] = about.paragraphs;
+
   return (
-    <section className="about section container" id="about">
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
-      >
-        <h2 className="section-title">Sobre <span className="text-gradient">Mí</span></h2>
-        
-        <div className="about-content">
-          <div className="about-text">
-            <p>
-              Soy un desarrollador altamente sistemático, movido por la curiosidad y el deseo constante de entender cómo funcionan las cosas por debajo del capó. Me considero alguien que disfruta resolviendo problemas complejos de manera estructurada y eficiente.
-            </p>
-            <p>
-              Mi enfoque siempre está en aprender y mejorar mis habilidades. Ya sea adentrándome en conceptos de bajo nivel o explorando las últimas tendencias en Inteligencia Artificial, mi objetivo es alcanzar la mejor versión de mí mismo en el ámbito profesional y aportar valor real a los proyectos en los que participo.
-            </p>
-          </div>
-          <div className="about-stats">
-            <div className="stat-item">
-              <h3 className="stat-number">UTN</h3>
-              <p className="stat-label">Ingeniería en Sistemas</p>
-            </div>
-            <div className="stat-item">
-              <h3 className="stat-number">100%</h3>
-              <p className="stat-label">Autodidacta Curioso</p>
-            </div>
+    <section id="sobre-mi" className="section ground-paper" data-ground="paper" aria-labelledby="sobre-mi-title">
+      <div className="wrap">
+        <div className="about-grid">
+          <img
+            className="about-photo"
+            src="/profile.webp"
+            alt={person.name}
+            width="640"
+            height="853"
+            loading="lazy"
+            decoding="async"
+          />
+
+          <div className="about-body">
+            <h2 id="sobre-mi-title" className="section-title">
+              Sobre mí
+            </h2>
+            <p className="about-lead">{lead}</p>
+            {rest.map((p) => (
+              <p key={p.slice(0, 24)} className="about-p">
+                {p}
+              </p>
+            ))}
+
+            <dl className="about-facts">
+              {about.facts.map((f) => (
+                <div key={f.term}>
+                  <dt>{f.term}</dt>
+                  <dd>{f.value}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
-      </motion.div>
+
+        <div className="stack" role="group" aria-labelledby="stack-title">
+          <h3 id="stack-title" className="stack-title">
+            Herramientas
+          </h3>
+          <div className="stack-layers">
+            {about.tools.map((layer) => (
+              <div key={layer.id} className={`stack-layer stack-layer--${layer.id}`}>
+                <p className="stack-name">{layer.name}</p>
+                <ul className="stack-items" aria-label={layer.name}>
+                  {layer.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

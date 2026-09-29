@@ -1,74 +1,119 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Star, GitFork, BookOpen } from 'lucide-react';
-import { FaGithub } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
 import { GitHubCalendar } from 'react-github-calendar';
+import { github, person } from '../content';
+import ExternalLink from './ExternalLink';
+import { useTheme } from '../hooks/useTheme';
 import './GithubActivity.css';
 
-const GithubActivity = () => {
-  const [profile, setProfile] = useState(null);
-  
+const MONTHS = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+const WEEKDAYS = ['dom', 'lun', 'mar', 'mié', 'jue', 'vie', 'sáb'];
+const HIDDEN = new Set([person.githubUser.toLowerCase()]);
+
+const relative = new Intl.RelativeTimeFormat('es-AR', { numeric: 'auto' });
+
+function sinceLabel(iso) {
+  const days = Math.round((Date.now() - new Date(iso).getTime()) / 86_400_000);
+  if (days < 1) return 'hoy';
+  if (days < 30) return relative.format(-days, 'day');
+  if (days < 365) return relative.format(-Math.round(days / 30), 'month');
+  return relative.format(-Math.round(days / 365), 'year');
+}
+
+function useRecentRepos() {
+  const [state, setState] = useState({ status: 'loading', repos: [] });
+
   useEffect(() => {
-    fetch('https://api.github.com/users/sandobaitt')
-      .then(res => res.json())
-      .then(data => {
-        if(!data.message) {
-          setProfile(data);
-        }
+    const controller = new AbortController();
+    fetch(`https://api.github.com/users/${person.githubUser}/repos?sort=pushed&per_page=20`, {
+      signal: controller.signal,
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(res.status);
+        return res.json();
       })
-      .catch(err => console.error(err));
+      .then((data) => {
+        const repos = data.filter((r) => !r.fork && !HIDDEN.has(r.name.toLowerCase())).slice(0, 6);
+        setState({ status: 'ready', repos });
+      })
+      .catch((err) => {
+        if (err.name !== 'AbortError') setState({ status: 'error', repos: [] });
+      });
+    return () => controller.abort();
   }, []);
 
-  return (
-    <section className="github section container" id="github">
-      <h2 className="section-title">Actividad en <span className="text-gradient">GitHub</span></h2>
-      
-      <motion.div 
-        className="github-container-sleek"
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="github-header-sleek">
-          <div className="github-profile-sleek">
-            <img src={profile?.avatar_url || "https://github.com/sandobaitt.png"} alt="GitHub Avatar" className="github-avatar-sleek" />
-            <div className="github-info-sleek">
-              <h3>{profile?.name || "Lautaro Sandoval"}</h3>
-              <a href="https://github.com/sandobaitt" target="_blank" rel="noopener noreferrer" className="github-username-sleek">
-                @sandobaitt
-              </a>
-            </div>
-          </div>
-          
-          <div className="github-stats-sleek">
-            <div className="g-stat-sleek">
-              <BookOpen size={18} />
-              <span>{profile?.public_repos || "10+"} Repos</span>
-            </div>
-            <a href="https://github.com/sandobaitt" target="_blank" rel="noopener noreferrer" className="btn-sleek">
-              Seguir en GitHub <span>↗</span>
-            </a>
-          </div>
-        </div>
+  return state;
+}
 
-        <div className="github-calendar-wrapper">
-          <GitHubCalendar 
-            username="sandobaitt" 
-            colorScheme="dark"
+const GithubActivity = () => {
+  const [theme] = useTheme();
+  const { status, repos } = useRecentRepos();
+
+  return (
+    <section id="github" className="section ground-paper github" data-ground="paper" aria-labelledby="github-title">
+      <div className="wrap">
+        <header className="section-head">
+          <h2 id="github-title" className="section-title">
+            En GitHub
+          </h2>
+          <p className="section-sub">{github.intro}</p>
+        </header>
+
+        <div className="github-calendar">
+          <GitHubCalendar
+            username={person.githubUser}
+            colorScheme={theme}
+            blockSize={12}
+            blockMargin={3}
+            blockRadius={2}
+            fontSize={13}
             theme={{
-              light: ['#ebedf0', '#FFD1B3', '#FF9F66', '#FF6A00', '#CC5500'],
-              dark: ['#292524', '#7A2E00', '#B34400', '#E65C00', '#FF6A00']
+              light: ['#e2e5eb', '#b9bff0', '#7d87e3', '#3f4bd0', '#1c28b8'],
+              dark: ['#1d2027', '#28307a', '#3643b4', '#6570ee', '#9aa2ff'],
             }}
             labels={{
+              months: MONTHS,
+              weekdays: WEEKDAYS,
               totalCount: '{{count}} contribuciones en el último año',
+              legend: { less: 'Menos', more: 'Más' },
             }}
-            blockSize={12}
-            blockMargin={4}
-            fontSize={12}
+            errorMessage="No se pudo cargar el calendario de contribuciones."
           />
         </div>
-      </motion.div>
+
+        <div className="github-repos">
+          {status === 'error' ? (
+            <p className="github-error">
+              No pude traer la lista desde GitHub en este momento. Están todos en{' '}
+              <a href={person.github} target="_blank" rel="noopener noreferrer">
+                github.com/{person.githubUser}
+              </a>
+              .
+            </p>
+          ) : (
+            <ul className="repo-list" aria-label="Repositorios recientes" aria-busy={status === 'loading'}>
+              {status === 'loading'
+                ? Array.from({ length: 6 }, (_, i) => <li key={i} className="repo repo--skeleton" aria-hidden="true" />)
+                : repos.map((r) => (
+                    <li key={r.id} className="repo">
+                      <a className="repo-name" href={r.html_url} target="_blank" rel="noopener noreferrer">
+                        {r.name}
+                      </a>
+                      <span className="repo-lang">{r.language ?? '—'}</span>
+                      <time className="repo-date" dateTime={r.pushed_at}>
+                        {sinceLabel(r.pushed_at)}
+                      </time>
+                    </li>
+                  ))}
+            </ul>
+          )}
+
+          <p>
+            <ExternalLink href={person.github} brand="github">
+              Ver el perfil completo
+            </ExternalLink>
+          </p>
+        </div>
+      </div>
     </section>
   );
 };

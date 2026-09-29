@@ -1,88 +1,99 @@
-.contact-content {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
+.contact {
+  padding-top: clamp(5rem, 12vw, 10rem);
+  padding-bottom: 2rem;
 }
 
-.contact-status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-primary);
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-  padding: 0.35rem 0.9rem;
-  border-radius: 999px;
-  margin-bottom: 1.5rem;
+.contact-title {
+  font-size: clamp(3.5rem, 11vw, 6rem);
+  font-stretch: 125%;
+  font-weight: 850;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
 }
 
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #10b981;
-  box-shadow: 0 0 8px #10b981;
-  animation: pulse-dot 2s infinite;
+/* "Escribime" se abre a lo ancho con el eje wdth de Archivo mientras la
+   sección entra: de 62% (condensada) a 125% (expandida). */
+@supports (animation-timeline: view()) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    .contact-title {
+      animation: title-open linear both;
+      animation-timeline: view();
+      animation-range: entry 25% cover 55%;
+    }
+  }
 }
 
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(0.85); }
+@keyframes title-open {
+  from {
+    font-stretch: 62%;
+    letter-spacing: 0.01em;
+  }
 }
 
 .contact-text {
-  color: var(--text-secondary);
-  font-size: 1.125rem;
-  margin-bottom: 3rem;
-  line-height: 1.6;
+  max-width: 38rem;
+  margin-top: 1.5rem;
+  font-size: clamp(1.125rem, 1.6vw, 1.3125rem);
+  color: var(--ink-2);
 }
 
-.contact-links-compact {
+.contact-mail {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
   flex-wrap: wrap;
-}
-
-.contact-icon-btn {
-  display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background-color: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-  border-radius: 50px;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  font-family: var(--font-heading);
+  gap: 1rem 1.5rem;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
 }
 
-.contact-icon-btn svg {
-  color: var(--accent-color);
+.contact-address {
+  font-size: clamp(1rem, 4.4vw, 2.25rem);
+  font-weight: 700;
+  font-stretch: 108%;
+  letter-spacing: -0.015em;
+  overflow-wrap: break-word;
+  text-decoration-color: var(--machine-yellow);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+  transition: color 0.2s ease;
 }
 
-.contact-icon-btn:hover {
-  border-color: var(--accent-color);
-  color: var(--accent-hover);
-  transform: translateY(-2px);
+.contact-address:hover {
+  color: var(--machine-yellow);
 }
 
-@media (max-width: 768px) {
-  .contact-text {
-    font-size: 0.95rem;
-    margin-bottom: 2rem;
-  }
+.contact-copy {
+  min-height: 2.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9375rem;
+}
 
-  .contact-links-compact {
-    gap: 1rem;
-  }
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  margin-top: 2rem;
+  padding: 0;
+  list-style: none;
+  font-size: 1.125rem;
+}
 
-  .contact-icon-btn {
-    padding: 0.6rem 1.25rem;
-    font-size: 0.9rem;
-  }
+.colophon {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  margin-top: clamp(5rem, 10vw, 8rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--machine-rule);
+  color: var(--machine-ink-2);
+  font-size: 0.875rem;
+}
+
+.colophon a {
+  text-decoration-color: var(--machine-rule);
+}
+
+.colophon a:hover {
+  color: var(--machine-ink);
+  text-decoration-color: currentColor;
 }

@@ -1,0 +1,26 @@
+.machine-intro {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.machine-intro .section-head {
+  margin-bottom: 0.5rem;
+}
+
+.machine-p {
+  max-width: 62ch;
+  font-size: 1.125rem;
+}
+
+.machine-outro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  margin-top: clamp(2rem, 5vw, 3rem);
+  scroll-margin-top: calc(var(--bar-h) + 2rem);
+}
+
+.ground-machine ::selection {
+  background: var(--machine-yellow);
+  color: var(--machine);
+}

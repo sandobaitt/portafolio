@@ -1,0 +1,194 @@
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--rule);
+  transition: background-color 0.45s var(--ease-out), color 0.45s var(--ease-out), border-color 0.45s var(--ease-out);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: var(--max);
+  height: var(--bar-h);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.topbar-name {
+  font-weight: 750;
+  font-stretch: 118%;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+/* En celular, al lado del nombre: la sección en la que estás. */
+.topbar-where {
+  display: none;
+  min-width: 0;
+  overflow: hidden;
+  color: var(--ink-3);
+  font-size: 0.875rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  animation: where-in 0.4s var(--ease-out);
+}
+
+.topbar-where::before {
+  content: '/';
+  margin-right: 0.6rem;
+  color: var(--rule-strong);
+}
+
+@keyframes where-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.4rem);
+  }
+}
+
+/* Línea de profundidad: cuánto bajaste en la página. */
+.topbar-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+.topbar-nav {
+  margin-left: auto;
+}
+
+.topbar-nav ul {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0;
+  list-style: none;
+}
+
+.topbar-nav a {
+  position: relative;
+  display: block;
+  padding: 0.45rem 0.7rem;
+  color: var(--ink-2);
+  font-size: 0.9375rem;
+  font-weight: 550;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.topbar-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0.7rem;
+  right: 0.7rem;
+  bottom: 0.2rem;
+  height: 2px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.topbar-nav a:hover,
+.topbar-nav a[aria-current] {
+  color: var(--ink);
+}
+
+.topbar-nav a[aria-current]::after {
+  transform: scaleX(1);
+}
+
+.topbar-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  transition: border-color 0.2s ease;
+}
+
+.icon-btn:hover {
+  border-color: var(--rule-strong);
+}
+
+.topbar-menu {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .topbar-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: inherit;
+    border-bottom: 1px solid var(--rule);
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-0.5rem);
+    transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out), visibility 0s linear 0.25s;
+  }
+
+  .topbar[data-open] .topbar-nav {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+  }
+
+  .topbar-nav ul {
+    flex-direction: column;
+    padding: 0.5rem var(--gutter) 1rem;
+  }
+
+  .topbar-nav a {
+    padding: 0.8rem 0;
+    font-size: 1.25rem;
+    font-stretch: 112%;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .topbar-nav li:last-child a {
+    border-bottom: 0;
+  }
+
+  .topbar-nav a::after {
+    display: none;
+  }
+
+  .topbar-nav a[aria-current] {
+    color: var(--accent);
+  }
+
+  .topbar-inner {
+    gap: 0.6rem;
+  }
+
+  .topbar-where {
+    display: block;
+  }
+
+  .topbar-actions {
+    margin-left: auto;
+  }
+
+  .topbar-menu {
+    display: grid;
+  }
+}
