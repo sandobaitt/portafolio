@@ -49,17 +49,53 @@
   }
 }
 
-/* Línea de profundidad: cuánto bajaste en la página. */
-.topbar-progress {
+/* Barra de profundidad: un corte de la página con un tramo por sección,
+   del color de su capa, en el orden en que se bajan. Lo ya recorrido se ve
+   lleno y una marca indica dónde estás. useScrollSections escribe los
+   tramos en --bar (sobre .topbar) y el avance en --p (sobre la barra). */
+.topbar {
+  --seg-paper: var(--rule-strong);
+  --seg-steel: var(--ink-3);
+  --seg-machine: var(--accent);
+}
+
+.topbar-depth {
   position: absolute;
   left: 0;
   right: 0;
   bottom: -1px;
-  height: 2px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
+  height: 3px;
   pointer-events: none;
+}
+
+.topbar-depth::before,
+.topbar-depth-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--bar, var(--accent));
+}
+
+/* El tramo que falta, tenue. */
+.topbar-depth::before {
+  content: '';
+  opacity: 0.3;
+}
+
+/* Lo recorrido, lleno. */
+.topbar-depth-fill {
+  clip-path: inset(0 calc((1 - var(--p, 0)) * 100%) 0 0);
+}
+
+/* La marca de dónde estás. */
+.topbar-depth::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: calc(var(--p, 0) * 100%);
+  width: 2px;
+  height: 7px;
+  margin-left: -1px;
+  background: var(--ink);
 }
 
 .topbar-nav {

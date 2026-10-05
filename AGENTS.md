@@ -40,7 +40,7 @@ Reglas para cualquier agente que trabaje en este repo. `PRODUCT.md` dice qué es
 2. Sitios publicados: IKIGAI y CCR, con capturas reales de escritorio y celular (`public/work/`).
 3. Repulsor: texto, método `rotar90` del repo y el tablero jugable (`RepulsorBoard.jsx`).
 4. Assembler 8086: el final del 28/08/2025 y la figura de los bits en octal.
-5. Sobre mí: foto, texto (con un párrafo de ciberseguridad y enlaces a las plataformas de CTF), estudio e idiomas, y las herramientas en tres franjas como el corte de la portada.
+5. Sobre mí: foto, texto (con un párrafo de ciberseguridad cuyos enlaces a las plataformas de CTF se descifran con `Decode.jsx`), estudio e idiomas, y las herramientas en tres franjas como el corte de la portada.
 6. GitHub: calendario y repos recientes desde la API.
 7. Contacto: el tiro al aro (`HoopShot.jsx`), mail con botón de copiar y redes con su logo. El pie lleva solo el © y "Volver arriba".
 

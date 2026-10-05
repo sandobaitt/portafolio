@@ -75,7 +75,9 @@ const TopBar = ({ active, ground }) => {
           </button>
         </div>
       </div>
-      <span className="topbar-progress" aria-hidden="true" />
+      <span className="topbar-depth" aria-hidden="true">
+        <span className="topbar-depth-fill" />
+      </span>
     </header>
   );
 };

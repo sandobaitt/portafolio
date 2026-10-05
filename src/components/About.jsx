@@ -1,4 +1,5 @@
 import { about, person } from '../content';
+import Decode from './Decode';
 import './About.css';
 
 const About = () => {
@@ -28,8 +29,8 @@ const About = () => {
                 typeof part === 'string' ? (
                   part
                 ) : (
-                  <a key={i} href={part.url} target="_blank" rel="noopener noreferrer">
-                    {part.text}
+                  <a key={i} href={part.url} target="_blank" rel="noopener noreferrer" aria-label={part.text}>
+                    <Decode text={part.text} />
                   </a>
                 ),
               )}

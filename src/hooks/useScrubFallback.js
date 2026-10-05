@@ -15,7 +15,7 @@ const supportsNative = () => typeof CSS !== 'undefined' && CSS.supports('animati
 
 // Posición del borde de arriba del sujeto (relativa a la pantalla) en un
 // punto del tramo, siguiendo la definición de los rangos de view().
-function edgeTop(name, pct, h, vh) {
+export function edgeTop(name, pct, h, vh) {
   const p = pct / 100;
   const span = Math.min(h, vh);
   switch (name) {
@@ -30,7 +30,7 @@ function edgeTop(name, pct, h, vh) {
   }
 }
 
-function parseRange(value) {
+export function parseRange(value) {
   const parts = value.trim().split(/\s+/);
   if (parts.length !== 4) return null;
   const start = parseFloat(parts[1]);

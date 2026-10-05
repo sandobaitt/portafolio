@@ -1,0 +1,22 @@
+/* La palabra real queda debajo, transparente: ocupa el lugar y dibuja el
+   subrayado del enlace. La cifrada va encima, escalada entera a su ancho;
+   gris mientras gira y en el color del texto letra por letra a medida que
+   cada una queda en su lugar. */
+.decode-word {
+  position: relative;
+  color: transparent;
+}
+
+.decode-shown {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: var(--ink-3);
+  white-space: nowrap;
+  transform: scaleX(var(--fit, 1));
+  transform-origin: left center;
+}
+
+.decode-done {
+  color: var(--ink);
+}
