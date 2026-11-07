@@ -183,3 +183,8 @@ export const contact = {
   text:
     'Si necesitás un sitio para tu institución o comercio, o estás armando un equipo y buscás a alguien, contame qué tenés en mente.',
 };
+
+// El botón del enjambre de cursores que construye la página.
+export const swarm = {
+  skip: 'Saltar',
+};

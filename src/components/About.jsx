@@ -58,7 +58,7 @@ const About = () => {
           </h3>
           <div className="stack-layers">
             {about.tools.map((layer) => (
-              <div key={layer.id} className={`stack-layer stack-layer--${layer.id}`} data-scrub="">
+              <div key={layer.id} className={`stack-layer stack-layer--${layer.id}`}>
                 <p className="stack-name">{layer.name}</p>
                 <ul className="stack-items" aria-label={layer.name}>
                   {layer.items.map((item) => (

@@ -20,9 +20,12 @@ npm run lint     # oxlint
 - `src/components/RepulsorBoard.jsx` implementa las reglas de Repulsor siguiendo el código original en Pharo.
 - `src/components/Code.jsx` resalta Smalltalk y assembler sin dependencias.
 - El calendario y la lista de repos se cargan desde la API de GitHub.
+- `src/hooks/useSwarmBuild.js` es el enjambre de cursores que construye la página mientras se scrollea.
 
 `DESIGN.md` describe el sistema visual y `PRODUCT.md` de dónde sale cada dato.
 
 ## Créditos
 
 Tipografías Archivo y Chivo Mono, de [Omnibus-Type](https://www.omnibus-type.com), con licencia OFL. Íconos de [Lucide](https://lucide.dev).
+
+La construcción con cursores es un homenaje a [Swarm](https://califa.github.io/swarm-site/), de Joel Califa, y a [Swarm Rebuild](https://github.com/DhvanilPatel/swarm-cursors), de Dhvanil Patel. La idea y la coreografía son de ellos; el código de este sitio está escrito desde cero.

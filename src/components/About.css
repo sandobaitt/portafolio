@@ -92,7 +92,6 @@
 }
 
 .stack-layer {
-  --scrub: entry 10% cover 38%;
   display: grid;
   grid-template-columns: 11rem minmax(0, 1fr);
   align-items: center;
@@ -154,29 +153,6 @@
 .stack-items li:hover {
   border-color: var(--chip-hover, var(--ink));
   transform: translateY(-1px);
-}
-
-/* Al entrar, cada franja se desliza dentro del marco desde un costado,
-   alternando, como capas que se insertan en la pila. */
-@supports (animation-timeline: view()) {
-  @media screen and (prefers-reduced-motion: no-preference) {
-    .stack-layer {
-      animation: stack-slide linear both;
-      animation-timeline: view();
-      animation-range: var(--scrub);
-    }
-
-    .stack-layer--lenguajes {
-      --from: 1;
-    }
-  }
-}
-
-@keyframes stack-slide {
-  from {
-    translate: calc(var(--from, -1) * 18%) 0;
-    opacity: 0;
-  }
 }
 
 @media (max-width: 760px) {

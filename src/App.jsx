@@ -9,12 +9,14 @@ import Contact from './components/Contact';
 import { sections } from './content';
 import { useScrollSections } from './hooks/useScrollSections';
 import { useScrubFallback } from './hooks/useScrubFallback';
+import { useSwarmBuild } from './hooks/useSwarmBuild';
 
 const ids = sections.map((s) => s.id);
 
 function App() {
   const { active, ground } = useScrollSections(ids);
   useScrubFallback();
+  useSwarmBuild();
 
   return (
     <>

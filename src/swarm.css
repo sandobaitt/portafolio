@@ -1,0 +1,336 @@
+/* Enjambre de cursores (useSwarmBuild). Las capas son fijas a la pantalla y no
+   reciben clics; solo el contador tiene un botón. Los colores de cajas y guías
+   vienen de la capa donde está cada elemento (--sw-accent, --sw-guide). */
+.sw-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  overflow: clip;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.sw-layer.is-on {
+  opacity: 1;
+}
+
+.sw-layer > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Cursores: flecha, cruz para dibujar y barra para tipear */
+.sw-cursor {
+  width: 18px;
+  height: 18px;
+  z-index: 3;
+  will-change: transform;
+  transition: opacity 0.15s ease;
+}
+
+.sw-cursor.is-idle {
+  opacity: 0;
+}
+
+.sw-shape {
+  position: absolute;
+  inset: 0;
+  width: 18px;
+  height: 18px;
+  display: none;
+  overflow: visible;
+  transition: scale 0.12s ease;
+}
+
+.sw-arrow {
+  display: block;
+  fill: var(--c);
+  stroke: #ffffff;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+
+.sw-cross,
+.sw-ibeam {
+  left: -9px;
+  top: -9px;
+  fill: none;
+  stroke: var(--c);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+}
+
+.sw-cursor[data-shape='cross'] .sw-arrow,
+.sw-cursor[data-shape='ibeam'] .sw-arrow {
+  display: none;
+}
+
+.sw-cursor[data-shape='cross'] .sw-cross,
+.sw-cursor[data-shape='ibeam'] .sw-ibeam {
+  display: block;
+}
+
+.sw-cursor[data-down] .sw-shape {
+  scale: 0.85;
+}
+
+/* Marca del principio */
+.sw-mark {
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.3s ease, transform 0.3s var(--ease-out);
+}
+
+.sw-layer.is-intro .sw-mark {
+  opacity: 1;
+  transform: none;
+}
+
+.sw-mark rect {
+  fill: var(--machine);
+}
+
+.sw-mark path {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Caja de selección */
+.sw-frame {
+  z-index: 1;
+  contain: layout style;
+  border: 1.5px solid var(--sw-accent);
+}
+
+.sw-frame-fill {
+  background: color-mix(in srgb, var(--sw-accent) 10%, transparent);
+}
+
+.sw-handle {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background: var(--paper-raised);
+  border: 1.5px solid var(--sw-accent);
+}
+
+.sw-tl {
+  top: -4px;
+  left: -4px;
+}
+.sw-tr {
+  top: -4px;
+  right: -4px;
+}
+.sw-bl {
+  bottom: -4px;
+  left: -4px;
+}
+.sw-br {
+  right: -4px;
+  bottom: -4px;
+}
+
+.sw-badge {
+  position: absolute;
+  top: calc(100% + 7px);
+  left: 50%;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: var(--sw-accent);
+  color: var(--sw-on-accent);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+/* Cursor de texto */
+.sw-caret {
+  width: 1.5px;
+  z-index: 2;
+  background: var(--sw-accent);
+  animation: sw-blink 0.9s steps(1) infinite;
+}
+
+@keyframes sw-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* Pluma */
+.sw-line {
+  z-index: 2;
+  height: 1.5px;
+  background: var(--sw-accent);
+}
+
+.sw-line::before,
+.sw-line::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--paper-raised);
+  border: 1.5px solid var(--sw-accent);
+}
+
+.sw-line::before {
+  left: -4px;
+}
+.sw-line::after {
+  right: -4px;
+}
+
+/* Duplicado en vuelo y medida de separación */
+.sw-layer > .sw-ghost {
+  z-index: 2;
+  margin: 0;
+  list-style: none;
+  opacity: 0.8;
+}
+
+.sw-measure {
+  z-index: 2;
+  padding: 0 4px;
+  border-radius: 2px;
+  background: var(--sw-guide);
+  color: var(--sw-on-guide);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.sw-measure::before {
+  content: '';
+  position: absolute;
+  background: var(--sw-guide);
+}
+
+.sw-measure[data-axis='x']::before {
+  top: 50%;
+  left: 0;
+  width: var(--len);
+  height: 1px;
+}
+
+.sw-measure[data-axis='y']::before {
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: var(--len);
+}
+
+/* Guías */
+.sw-guide {
+  z-index: 1;
+  background: var(--sw-guide);
+}
+
+.sw-guide-v {
+  width: 1px;
+  height: 100%;
+}
+
+.sw-guide-h {
+  width: 100%;
+  height: 1px;
+}
+
+/* Reglas */
+.sw-ruler {
+  z-index: 2;
+  background-color: #15171c;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.35) 1px, transparent 1px);
+  background-size: 50px 100%;
+  opacity: 0;
+  transition: transform 0.35s var(--ease-out), opacity 0.2s ease;
+}
+
+.sw-ruler-top {
+  top: var(--bar-h);
+  width: 100%;
+  height: 14px;
+  transform: translateY(-14px);
+}
+
+.sw-ruler-left {
+  width: 14px;
+  height: 100%;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 1px, transparent 1px);
+  background-size: 100% 50px;
+  transform: translateX(-14px);
+}
+
+.sw-layer.is-rulers .sw-ruler {
+  opacity: 1;
+  transform: none;
+}
+
+/* Saltar: chico y en la esquina. El fondo semitransparente deja el texto blanco
+   arriba de 4.5:1 sobre cualquier suelo, incluso sobre blanco puro. */
+.sw-skip {
+  position: fixed;
+  right: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  z-index: 46;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(21, 23, 28, 0.62);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, background-color 0.15s ease, visibility 0s linear 0.2s;
+}
+
+.sw-skip.is-on {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease, background-color 0.15s ease;
+}
+
+/* Adentro del botón, para que se vea sobre cualquier suelo. */
+.sw-skip:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -4px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .sw-skip:hover {
+    background: rgba(21, 23, 28, 0.88);
+  }
+}
+
+@media (pointer: coarse) {
+  .sw-skip {
+    min-height: 2.25rem;
+    padding-inline: 0.9rem;
+  }
+}
+
+@media print {
+  .sw-layer,
+  .sw-skip {
+    display: none;
+  }
+}

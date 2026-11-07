@@ -16,8 +16,8 @@ Reglas para cualquier agente que trabaje en este repo. `PRODUCT.md` dice qué es
 - El básquet aparece solo en el tiro al aro de Contacto y en una frase de "Sobre mí". El naranja de la pelota no se usa en ningún otro lado.
 - Prohibido: texto con gradiente, etiquetas o "badges" arriba de los títulos, brillos (`box-shadow` de color sin desplazamiento), emojis como íconos, tarjetas iguales con ícono + título + texto como estructura de la página.
 - Contraste mínimo 4.5:1 para texto, verificado en los dos temas.
-- El contenido se ve por defecto. Nada de `opacity: 0` esperando a que la sección entre en pantalla.
-- Movimiento: cada animación muestra un mecanismo real del trabajo, y el scroll es la bajada por las capas (detalle en `DESIGN.md`). No agregar efectos decorativos sueltos ni la misma entrada en todas las secciones.
+- El contenido se ve por defecto. Nada de `opacity: 0` en CSS esperando a que la sección entre en pantalla. La única excepción es `useSwarmBuild`, que oculta por JS justo antes de construir y siempre devuelve el elemento.
+- Movimiento: cada animación muestra un mecanismo real del trabajo, y el scroll es la bajada por las capas (detalle en `DESIGN.md`). No agregar efectos decorativos sueltos. La entrada de los elementos es una sola, el enjambre de cursores: para sumar o sacar algo se toca la lista `TARGETS` de `useSwarmBuild.js`, no se crea otra entrada. El código del enjambre es propio: los repos de Swarm y Swarm Rebuild no tienen licencia, así que no se copia nada de ellos.
 - Animaciones de scroll: siempre dentro de `@supports (animation-timeline: view())` y `@media screen and (prefers-reduced-motion: no-preference)`, con el contenido visible si no corren. Si un contenedor recorta y tiene animaciones de scroll adentro, usar `overflow: clip`, nunca `hidden`.
 - Toda animación de scroll necesita también su respaldo para navegadores sin soporte (Firefox): el tramo va en la variable `--scrub` (fuera del `@supports`) y la versión nativa usa `animation-range: var(--scrub)`; el elemento lleva `data-scrub` (vacío, o el selector del ancestro que se mide), y en `src/scroll-fallback.css` se agrega la regla con la misma animación pausada y `animation-delay: calc(var(--p) * -1s)`. El motor es `useScrubFallback`.
 
@@ -31,7 +31,7 @@ Reglas para cualquier agente que trabaje en este repo. `PRODUCT.md` dice qué es
 ## 4. Stack
 
 - Vite + React 19, CSS vanilla con variables.
-- Sin librerías de animación: transiciones CSS y `animation-timeline: view()` con fallback visible.
+- Sin librerías de animación: transiciones CSS, `animation-timeline: view()` con fallback visible y WAAPI (`element.animate`) en el enjambre.
 - `lucide-react` para íconos de interfaz, `react-icons` (solo `fa6`) para los logos de GitHub, LinkedIn e Instagram, `react-github-calendar` para el calendario, `@fontsource` para las fuentes.
 
 ## 5. Secciones

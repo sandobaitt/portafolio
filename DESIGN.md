@@ -45,10 +45,20 @@ Dentro de `.ground-machine` los tokens de tinta y acento se redefinen, así los 
 
 ## Movimiento
 
-La regla: cada animación muestra un mecanismo real del trabajo, y el scroll es la bajada por las capas. Cada capa se mueve en su propio lenguaje.
+La regla: cada animación muestra un mecanismo real del trabajo, y el scroll es la bajada por las capas. Cada capa se mueve en su propio lenguaje. Por encima de eso, toda la página se construye en enjambre.
+
+Construcción en enjambre (`useSwarmBuild.js`, `swarm.css`, pedida por Lautaro)
+- Homenaje a Swarm de Joel Califa y a Swarm Rebuild de Dhvanil Patel: un enjambre de cursores arma la página a la vista mientras se scrollea. La idea y la coreografía son de ellos. El código es propio, porque ninguno de los dos repos tiene licencia.
+- Al entrar, los cursores orbitan la marca y se reparten. Cada sección arranca con guías que salen de las reglas. Cajas e imágenes: cruz, arrastre con la medida en vivo y aparece el elemento real. Texto: caja del tamaño del texto y tipeo con cursor de texto. Líneas: pluma con puntos de anclaje. Lo repetido (etiquetas, enlaces, repos): el primero se dibuja y los demás se duplican arrastrando, con la distancia medida.
+- Solo se ve el cursor que tiene una tarea en marcha: cuando termina y no hay otra, desaparece. La única excepción es la órbita inicial, cuando todavía no hay contenido que tapar.
+- Se construye una vez por carga. Todo está en la lista `TARGETS`; los ajustes y el interruptor (`ENABLED`) están al principio del archivo. Cada tipo de tarea es un generador que avanza un paso por cuadro.
+- Sobre la página real solo cambian `visibility` y `clip-path`, así que nada se corre de lugar y el tablero, la máquina, el calendario y el tiro al aro siguen andando igual. Los dibujos van en una capa fija que no recibe clics.
+- "Saltar" es el único control: un botón chico abajo a la derecha, visible solo mientras se construye algo. Desaparece al apretarlo o cuando ya se armó todo.
+- Colores: cursores, reglas y "Saltar" son iguales en los dos temas. Las cajas usan el acento de la capa y las guías son rojas (`--p2`), o cian sobre el azul.
+- Nada espera oculto sin JS: el motor oculta un elemento recién cuando está por entrar en pantalla. "Saltar" o Esc muestran todo al instante, y lo que lleva 3 s en pantalla sin cursor libre se muestra solo. Con movimiento reducido no corre; a más de 4 px/ms de scroll, lo que pasa se muestra sin construir. Si algo falla, muestra todo. El bucle duerme si no hay nada que hacer.
+- En pantallas de menos de 760 px o equipos con 4 hilos o menos, modo liviano: 7 cursores en vez de 14, sin reglas y solo con la guía vertical.
 
 Al cargar
-- Portada: el nombre sube desde una máscara, el texto aparece después y el corte se perfora de arriba hacia abajo (`clip-path`), capa por capa. Unos 1.3 s.
 - Corte vivo (`Strata.jsx`): un recorrido baja por las tres capas cada 12 s. En web, el celular de CCR se desplaza; en objetos, la flecha gira como en `rotar90` y se marca la rama del `caseOf`; en máquina, un cursor recorre cuatro instrucciones y cambian `al`, `num` y la pila. Se pausa fuera de pantalla.
 
 Con el scroll (CSS `animation-timeline`, salvo la máquina)
@@ -57,7 +67,6 @@ Con el scroll (CSS `animation-timeline`, salvo la máquina)
 - Bordes de capa: Repulsor, Assembler y Contacto entran como una placa con las esquinas de arriba redondeadas que se abre a todo el ancho. La sección pinta el suelo anterior y `.layer-fill` el suyo, recortado.
 - Objetos: las 64 flechas del tablero giran hasta su dirección en una ola diagonal (propiedad `rotate`, para no pisar el giro del juego). Terminan antes de que el tablero llegue al centro.
 - Máquina (`OctalMachine.jsx`, JS): la escena queda fija y la pista de scroll ejecuta el final en 10 pasos. La cinta del registro se corre con cada `shr`, la máscara de `and al, 111b` resalta tres bits, la pila se llena y se vacía y la pantalla imprime 247. El listado sigue a la instrucción activa, como un depurador. Anterior y Siguiente mueven el scroll; Saltar lleva al final de la sección. En pantallas de menos de 540 px de alto la escena no se fija y los botones cambian el paso.
-- Herramientas: cada franja entra al marco desde un costado, alternando.
 - GitHub: el calendario se dibuja de izquierda a derecha (máscara con `--reveal`).
 - Contacto: "Escribime" se abre con el eje `wdth` de Archivo, de 62% a 125%.
 - Contacto, tiro al aro (`HoopShot.jsx`): una pelota hace una parábola y encesta en un aro dibujado de perfil. Gira con efecto hacia atrás, se estira y se aplasta apenas al salir y al frenarse en la red; al encestar la red se sacude y aparece "SWISH" con un destello de líneas. Vive en su propio espacio: a la derecha de "Escribime" desde 1280 px, y en una franja arriba del título en tablet y celular. Sin animación se ve la pelota adentro de la red. Es el único naranja del sitio y está solo en la pelota. Los ajustes (tramo de scroll, ancho, colores) están al principio de `HoopShot.css`.
@@ -74,7 +83,7 @@ Garantías
 - Contacto ocupa al menos una pantalla: al ser la última sección, así siempre queda scroll para que el tiro al aro termine.
 - Los contenedores que recortan y tienen animaciones de scroll adentro usan `overflow: clip`, no `hidden`: `hidden` los vuelve contenedores de scroll y congela las animaciones de sus hijos.
 - Verificado en Chrome y Firefox a 1920, 1440, 820 y 390 px, en claro y oscuro, sin desborde horizontal.
-- Presupuesto: el sitio ya tiene todo el movimiento que necesita. Antes de sumar otro efecto, medir un recorrido completo (tiempos de cuadro y tareas largas) y preguntarse qué mecanismo real del trabajo muestra.
+- Presupuesto: el sitio ya tiene todo el movimiento que necesita. Antes de sumar otro efecto, medir un recorrido completo con el CPU frenado 4 veces (tiempos de cuadro y tareas largas). Referencia con el enjambre, a 390 px: cuadro p50 17 ms, p95 33 ms (17 ms sin él), sin tareas largas durante el scroll.
 
 ## Superficies del navegador
 

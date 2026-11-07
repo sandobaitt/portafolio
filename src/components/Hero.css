@@ -348,67 +348,8 @@
   color: var(--machine-yellow);
 }
 
-/* ------------------------------------------------------------------
-   Entrada: el nombre sale de una máscara y el corte se perfora de
-   arriba hacia abajo. Sin preferencia de movimiento reducido.
-------------------------------------------------------------------- */
 .hero-line {
   display: block;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .hero-line {
-    overflow: hidden;
-    padding-block: 0.08em;
-    margin-block: -0.08em;
-  }
-
-  .hero-line > span {
-    display: block;
-    animation: hero-rise 1s var(--ease-out) both;
-  }
-
-  .hero-line + .hero-line > span {
-    animation-delay: 0.09s;
-  }
-
-  .hero-lead,
-  .hero-actions,
-  .hero-place {
-    animation: hero-fade 0.8s var(--ease-out) both;
-  }
-
-  .hero-lead {
-    animation-delay: 0.3s;
-  }
-  .hero-actions {
-    animation-delay: 0.42s;
-  }
-  .hero-place {
-    animation-delay: 0.54s;
-  }
-
-  .strata {
-    animation: strata-drill 1.15s cubic-bezier(0.65, 0, 0.2, 1) 0.15s backwards;
-  }
-
-  .stratum-label > *,
-  .stratum-visual > * {
-    animation: hero-fade 0.7s var(--ease-out) backwards;
-  }
-
-  .stratum--sitios .stratum-label > *,
-  .stratum--sitios .stratum-visual > * {
-    animation-delay: 0.45s;
-  }
-  .stratum--repulsor .stratum-label > *,
-  .stratum--repulsor .stratum-visual > * {
-    animation-delay: 0.75s;
-  }
-  .stratum--assembler .stratum-label > *,
-  .stratum--assembler .stratum-visual > * {
-    animation-delay: 1.05s;
-  }
 }
 
 /* Al empezar a bajar, el corte se separa en sus capas: una vista en
@@ -420,11 +361,9 @@
     }
 
     .strata {
-      animation:
-        strata-drill 1.15s cubic-bezier(0.65, 0, 0.2, 1) 0.15s backwards,
-        strata-open linear both;
-      animation-timeline: auto, --hero;
-      animation-range: normal, var(--scrub);
+      animation: strata-open linear both;
+      animation-timeline: --hero;
+      animation-range: var(--scrub);
     }
 
     .stratum {
@@ -447,28 +386,6 @@
     rotate: calc((var(--i) - 1) * 1deg);
     border-radius: 8px;
     box-shadow: var(--shadow-lift);
-  }
-}
-
-@keyframes hero-rise {
-  from {
-    transform: translateY(105%);
-  }
-}
-
-@keyframes hero-fade {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-}
-
-@keyframes strata-drill {
-  from {
-    clip-path: inset(0 0 100% 0 round 8px);
-  }
-  to {
-    clip-path: inset(0 0 0 0 round 8px);
   }
 }
 
